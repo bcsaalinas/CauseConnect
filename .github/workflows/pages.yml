@@ -1,0 +1,34 @@
+name: Deploy static site to Pages
+
+on:
+  push:
+    branches: [main] #trigger only when main gets new commits
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest #run on GitHub’s Linux VM
+    steps:
+      - uses: actions/checkout@v4 #pull our code from the repo
+
+      #copy files from src/ (and public/) into dist/, the folder that will be deployed
+      - name: Prepare site from /src
+        run: |
+          mkdir -p dist
+          cp -r src/* dist/
+          cp -r public dist/public || true
+
+      #configure GitHub Pages and upload the site
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - uses: actions/deploy-pages@v4 #deploy to the live GitHub Pages link
