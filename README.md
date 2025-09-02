@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <a href="https://bcsalinas.github.io/CauseConnect/">
+  <a href="https://bcsaalinas.github.io/CauseConnect/">
     <img src="https://img.shields.io/badge/Live%20Preview-GitHub%20Pages-blue?style=for-the-badge" alt="Live Preview">
   </a>
 </p>
@@ -15,7 +15,7 @@
 ## 🚀 Live Preview
 
 ✨ **Check out the project here:**  
-👉 [https://bcsalinas.github.io/CauseConnect/](https://bcsalinas.github.io/CauseConnect/)
+👉 [https://bcsaalinas.github.io/CauseConnect/](https://bcsaalinas.github.io/CauseConnect/)
 
 ---
 
