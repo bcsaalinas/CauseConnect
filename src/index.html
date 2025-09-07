@@ -7,27 +7,47 @@
       name="description"
       content="Causse Connect - Connecting Causes with People"
     />
-    <link rel="stylesheet" href="styles/main.css" />
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="styles/main.css" />
+
     <title>Cause Connect</title>
   </head>
   <body>
-    <header>
-      <div id="logo">Cause Connect</div>
-      <nav>
-        <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#directory">Directory</a></li>
-          <li><a href="#sdgs">SDGs</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-    </header>
+    <nav class="navbar navbar-expand-md navbar-dark cc-header">
+      <div class="container py-1">
+        <a href="#cause-connect" class="navbar-brand">Cause Connect</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#directory">Directory</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#sdgs">SDGs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
     <div id="hero-section">
       <h2>Welcome to Cause Connect</h2>
       <p><strong>Connecting Causes with People</strong></p>
@@ -48,7 +68,13 @@
     </div>
     <br />
     <div id="search-by">
-      <button id="search-by">Search by category</button>
+      <button id="search-by-btn">Search by category</button>
     </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
