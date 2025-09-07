@@ -1,1 +1,4 @@
 /* Main CSS File for main Cause Connect file */
+* {
+  box-sizing: border-box;
+}
