@@ -19,15 +19,15 @@
 }
 
 .cc-header {
+  /* calm, subtle wave that keeps color mix visible */
   background: linear-gradient(
     135deg,
     var(--cc-primary) 0%,
-    var(--cc-primary-dark) 40%,
+    var(--cc-primary-dark) 45%,
     var(--cc-accent) 100%
   );
-  /* gentle, calming gradient motion */
-  background-size: 300% 300%;
-  animation: gradientWave 20s linear infinite alternate;
+  background-size: 250% 250%;
+  animation: gradientSway 16s ease-in-out infinite alternate;
 }
 
 .nav-link {
@@ -70,7 +70,17 @@
     background-position: 0% 50%;
   }
   100% {
-    background-position: 100% 50%;
+    background-position: 200% 50%;
+  }
+}
+
+/* subtle sway to avoid single-color frames */
+@keyframes gradientSway {
+  0% {
+    background-position: 20% 50%;
+  }
+  100% {
+    background-position: 80% 50%;
   }
 }
 
@@ -83,6 +93,7 @@
 }
 
 #login {
+  color: var(--cc-text-light);
   --bs-btn-color: var(--cc-primary);
   --bs-btn-border-color: var(--cc-primary);
   --bs-btn-hover-color: var(--cc-text-light);
