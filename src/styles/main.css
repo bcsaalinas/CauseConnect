@@ -6,6 +6,8 @@
   --cc-primary: #8a2be2; /* violet */
   --cc-primary-dark: #6c1fba; /* darker violet */
   --cc-accent: #1fb6a6; /* teal */
+  --cc-accent-dark: #178f85; /* darker teal for borders */
+  --cc-accent-darker: #06714f; /* lighter teal for backgrounds */
   --cc-accent-alt: #ff6b6b; /* coral */
   --cc-accent-alt-dark: #e05656; /* darker coral for borders */
   --cc-text: #0f172a; /* main text */
@@ -22,21 +24,49 @@
 .cc-header {
   background: linear-gradient(
     270deg,
-    var(--cc-primary),
-    var(--cc-primary-dark),
-    var(--cc-primary),
-    var(--cc-primary-dark)
+    var(--cc-accent),
+    var(--cc-accent-dark),
+    var(--cc-accent-darker)
   );
   background-size: 600% 600%;
   animation: gradientWave 25s ease-in-out infinite;
+  --bs-navbar-padding-y: 0.25rem; /* keep navbar compact */
+}
+.cc-header.navbar {
+  padding-block: 0.25rem; /* tighten overall header height */
+}
+.cc-header .navbar-brand {
+  display: flex;
+  align-items: center;
+  height: 56px; /* fixed header height on mobile */
+  overflow: visible; /* allow visual overspill without layout change */
 }
 .cc-brand-logo {
-  height: 32px;
-  width: auto;
+  display: block;
+  height: 48px; /* layout-constrained size */
+  width: auto; /* preserve aspect ratio */
+  object-fit: contain;
+  object-position: left center;
+  transform: scale(1.65); /* visually larger WITHOUT affecting header height */
+  transform-origin: left center;
 }
 @media (min-width: 768px) {
   .cc-brand-logo {
-    height: 40px;
+    height: 56px; /* matches 64px header minus padding */
+    transform: scale(1.9);
+  }
+}
+@media (min-width: 1200px) {
+  .cc-brand-logo {
+    height: 56px; /* keep layout stable */
+    transform: scale(2.05);
+  }
+}
+
+@media (min-width: 768px) {
+  .cc-header .navbar-brand {
+    padding-block: 0.25rem;
+    height: 64px; /* FIXED header height on md+ */
   }
 }
 .cc-header .btn-outline-primary {
