@@ -2,19 +2,54 @@
 * {
   box-sizing: border-box;
 }
+:root {
+  --cc-primary: #8a2be2; /* violet */
+  --cc-primary-dark: #6c1fba; /* darker violet */
+  --cc-accent: #1fb6a6; /* teal */
+  --cc-accent-alt: #ff6b6b; /* coral */
+  --cc-text: #0f172a; /* main text */
+  --cc-text-light: #f8fafc; /* light text (on dark bg) */
+  --cc-bg: #ffffff; /* default background */
+
+  --bs-primary: var(--cc-primary);
+  --bs-primary-rgb: 138, 43, 226;
+  --bs-info: var(--cc-accent);
+  --bs-danger: var(--cc-accent-alt);
+  /* override Bootstrap variables */
+}
 
 .cc-header {
-  background-color: #8a2be2;
-  background-image: linear-gradient(
+  background: linear-gradient(
     135deg,
-    #8a2be2 0%,
-    #6c1fba 38%,
-    #1fb6a6 100%
+    var(--cc-primary) 0%,
+    var(--cc-primary-dark) 40%,
+    var(--cc-accent) 100%
   );
-  color: #ffffff;
+  /* gentle, calming gradient motion */
+  background-size: 300% 300%;
+  animation: gradientWave 20s linear infinite alternate;
+}
 
-  background-size: 200% 200%;
-  animation: gradientShift 10s ease infinite;
+.nav-link {
+  color: var(--cc-text-light);
+}
+
+.nav-link:hover {
+  color: var(--cc-accent-alt);
+}
+
+/* keep brand color unchanged on hover */
+.cc-search input {
+  border-radius: 0.5rem;
+  border: 1px solid var(--cc-primary);
+  padding: 0.375rem 0.75rem;
+}
+.cc-search input:hover,
+.cc-search input:focus,
+.cc-search input:focus-visible {
+  border-color: var(--cc-accent-alt);
+  box-shadow: 0 0 0 0.2rem rgba(255, 107, 107, 0.25);
+  outline: none;
 }
 
 @keyframes gradientShift {
@@ -27,4 +62,68 @@
   100% {
     background-position: 0% 50%;
   }
+}
+
+/* simple back-and-forth wave */
+@keyframes gradientWave {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .cc-header {
+    animation: none;
+    background-position: 50% 50%;
+  }
+}
+
+#login {
+  --bs-btn-color: var(--cc-primary);
+  --bs-btn-border-color: var(--cc-primary);
+  --bs-btn-hover-color: var(--cc-text-light);
+  --bs-btn-hover-bg: var(--cc-accent-alt);
+  --bs-btn-hover-border-color: var(--cc-accent-alt);
+}
+#sign-up {
+  --bs-btn-bg: var(--cc-primary);
+  --bs-btn-border-color: var(--cc-primary);
+  --bs-btn-color: var(--cc-text-light);
+  --bs-btn-hover-bg: var(--cc-accent-alt);
+  --bs-btn-hover-border-color: var(--cc-accent-alt);
+}
+
+/*  make all buttons hover coral */
+.btn {
+  --bs-btn-hover-bg: var(--cc-accent-alt);
+  --bs-btn-hover-border-color: var(--cc-accent-alt);
+  --bs-btn-hover-color: var(--cc-text-light);
+  --bs-btn-active-bg: var(--cc-accent-alt);
+  --bs-btn-active-border-color: var(--cc-accent-alt);
+}
+
+/* fallback + cover plain button elements */
+.btn,
+button {
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover,
+.btn:focus,
+button:hover,
+button:focus {
+  background-color: var(--cc-accent-alt);
+  border-color: var(--cc-accent-alt);
+  color: var(--cc-text-light);
+}
+
+.btn:focus-visible,
+button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(255, 107, 107, 0.35);
 }
