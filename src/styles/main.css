@@ -2,6 +2,9 @@
 * {
   box-sizing: border-box;
 }
+body {
+  font-family: var(--font);
+}
 :root {
   --cc-primary: #8a2be2; /* violet */
   --cc-primary-dark: #6c1fba; /* darker violet */
@@ -13,6 +16,7 @@
   --cc-text: #0f172a; /* main text */
   --cc-text-light: #f8fafc; /* light text (on dark bg) */
   --cc-bg: #ffffff; /* default background */
+  --font: "Poppins", sans-serif;
 
   --bs-primary: var(--cc-primary);
   --bs-primary-rgb: 138, 43, 226;
