@@ -19,12 +19,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4 #pull our code from the repo
 
-      #copy files from src/ (and public/) into dist/, the folder that will be deployed
+      #copy files from src/ into dist/, the folder that will be deployed
       - name: Prepare site from /src
         run: |
           mkdir -p dist
           cp -r src/* dist/
-          cp -r public dist/public || true
 
       #configure GitHub Pages and upload the site
       - uses: actions/configure-pages@v5
