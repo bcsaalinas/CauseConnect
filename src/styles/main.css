@@ -47,18 +47,18 @@
   width: auto; /* preserve aspect ratio */
   object-fit: contain;
   object-position: left center;
-  transform: scale(1.65); /* visually larger WITHOUT affecting header height */
+  transform: scale(1.65); /*  larger without affecting header height */
   transform-origin: left center;
 }
 @media (min-width: 768px) {
   .cc-brand-logo {
-    height: 56px; /* matches 64px header minus padding */
+    height: 56px; /* matches header minus padding */
     transform: scale(1.9);
   }
 }
 @media (min-width: 1200px) {
   .cc-brand-logo {
-    height: 56px; /* keep layout stable */
+    height: 56px;
     transform: scale(2.05);
   }
 }
@@ -66,7 +66,7 @@
 @media (min-width: 768px) {
   .cc-header .navbar-brand {
     padding-block: 0.25rem;
-    height: 64px; /* FIXED header height on md+ */
+    height: 64px;
   }
 }
 .cc-header .btn-outline-primary {
