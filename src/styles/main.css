@@ -30,6 +30,15 @@
   background-size: 600% 600%;
   animation: gradientWave 25s ease-in-out infinite;
 }
+.cc-brand-logo {
+  height: 32px;
+  width: auto;
+}
+@media (min-width: 768px) {
+  .cc-brand-logo {
+    height: 40px;
+  }
+}
 .cc-header .btn-outline-primary {
   --bs-btn-border-width: 2px; /* thicker outline for visibility */
   --bs-btn-border-color: var(
