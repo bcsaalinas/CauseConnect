@@ -7,6 +7,7 @@
   --cc-primary-dark: #6c1fba; /* darker violet */
   --cc-accent: #1fb6a6; /* teal */
   --cc-accent-alt: #ff6b6b; /* coral */
+  --cc-accent-alt-dark: #e05656; /* darker coral for borders */
   --cc-text: #0f172a; /* main text */
   --cc-text-light: #f8fafc; /* light text (on dark bg) */
   --cc-bg: #ffffff; /* default background */
@@ -19,9 +20,22 @@
 }
 
 .cc-header {
-  background: linear-gradient(270deg, var(--cc-primary-dark), var(--cc-accent));
+  background: linear-gradient(
+    270deg,
+    var(--cc-primary),
+    var(--cc-primary-dark),
+    var(--cc-primary),
+    var(--cc-primary-dark)
+  );
   background-size: 600% 600%;
-  animation: gradientWave 20s linear infinite;
+  animation: gradientWave 25s ease-in-out infinite;
+}
+.cc-header .btn-outline-primary {
+  --bs-btn-border-width: 2px; /* thicker outline for visibility */
+  --bs-btn-border-color: var(
+    --cc-text-light
+  ); /* light outline on dark gradient */
+  --bs-btn-color: var(--cc-text-light); /* keep text legible */
 }
 
 @keyframes gradientShift {
@@ -83,23 +97,23 @@
   --bs-btn-border-color: var(--cc-primary);
   --bs-btn-hover-color: var(--cc-text-light);
   --bs-btn-hover-bg: var(--cc-accent-alt);
-  --bs-btn-hover-border-color: var(--cc-accent-alt);
+  --bs-btn-hover-border-color: var(--cc-accent-alt-dark);
 }
 #sign-up {
   --bs-btn-bg: var(--cc-primary);
   --bs-btn-border-color: var(--cc-primary);
   --bs-btn-color: var(--cc-text-light);
   --bs-btn-hover-bg: var(--cc-accent-alt);
-  --bs-btn-hover-border-color: var(--cc-accent-alt);
+  --bs-btn-hover-border-color: var(--cc-accent-alt-dark);
 }
 
 /*  make all buttons hover coral */
 .btn {
   --bs-btn-hover-bg: var(--cc-accent-alt);
-  --bs-btn-hover-border-color: var(--cc-accent-alt);
+  --bs-btn-hover-border-color: var(--cc-accent-alt-dark);
   --bs-btn-hover-color: var(--cc-text-light);
   --bs-btn-active-bg: var(--cc-accent-alt);
-  --bs-btn-active-border-color: var(--cc-accent-alt);
+  --bs-btn-active-border-color: var(--cc-accent-alt-dark);
 }
 
 /* fallback + cover plain button elements */
