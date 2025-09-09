@@ -1,0 +1,186 @@
+/* Main CSS File for main Cause Connect file */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font);
+  background-color: #ffffff;
+}
+:root {
+  --cc-primary: #8a2be2; /* violet */
+  --cc-primary-dark: #6c1fba; /* darker violet */
+  --cc-accent: #1fb6a6; /* teal */
+  --cc-accent-dark: #178f85; /* darker teal for borders */
+  --cc-accent-darker: #06714f; /* lighter teal for backgrounds */
+  --cc-accent-alt: #6c1fba; /* coral */
+  --cc-accent-alt-dark: #e05656; /* darker coral for borders */
+  --cc-text: #0f172a; /* main text */
+  --cc-text-light: #f8fafc; /* light text (on dark bg) */
+  --cc-bg: #ffffff; /* default background */
+  --font: "Poppins", sans-serif;
+
+  --bs-primary: var(--cc-primary);
+  --bs-primary-rgb: 138, 43, 226;
+  --bs-info: var(--cc-accent);
+  --bs-danger: var(--cc-accent-alt);
+  /* override Bootstrap variables */
+}
+
+.cc-header {
+  background: linear-gradient(
+    270deg,
+    var(--cc-accent),
+    var(--cc-accent-dark),
+    var(--cc-accent-darker)
+  );
+  background-size: 600% 600%;
+  animation: gradientWave 25s ease-in-out infinite;
+  --bs-navbar-padding-y: 0.25rem; /* keep navbar compact */
+}
+.cc-header.navbar {
+  padding-block: 0.25rem; /* tighten overall header height */
+}
+.cc-header .navbar-brand {
+  display: flex;
+  align-items: center;
+  height: 56px; /* fixed header height on mobile */
+  overflow: visible; /* allow visual overspill without layout change */
+}
+.cc-brand-logo {
+  display: block;
+  height: 48px; /* layout-constrained size */
+  width: auto; /* preserve aspect ratio */
+  object-fit: contain;
+  object-position: left center;
+  transform: scale(1.65); /*  larger without affecting header height */
+  transform-origin: left center;
+}
+@media (min-width: 768px) {
+  .cc-brand-logo {
+    height: 56px; /* matches header minus padding */
+    transform: scale(1.9);
+  }
+}
+@media (min-width: 1200px) {
+  .cc-brand-logo {
+    height: 56px;
+    transform: scale(2.05);
+  }
+}
+
+@media (min-width: 768px) {
+  .cc-header .navbar-brand {
+    padding-block: 0.25rem;
+    height: 64px;
+  }
+}
+.cc-header .btn-outline-primary {
+  --bs-btn-border-width: 2px; /* thicker outline for visibility */
+  --bs-btn-border-color: var(
+    --cc-text-light
+  ); /* light outline on dark gradient */
+  --bs-btn-color: var(--cc-text-light); /* keep text legible */
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes gradientWave {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .cc-header {
+    animation: none;
+    background-size: 100% 100%;
+  }
+}
+.nav-link {
+  color: var(--cc-text-light);
+}
+
+.nav-link:hover {
+  color: var(--cc-accent-alt);
+}
+
+/* keep brand color unchanged on hover */
+.cc-search input {
+  border-radius: 0.5rem;
+  border: 1px solid var(--cc-primary);
+  padding: 0.375rem 0.75rem;
+}
+.cc-search input:hover,
+.cc-search input:focus,
+.cc-search input:focus-visible {
+  border-color: var(--cc-accent-alt);
+  box-shadow: 0 0 0 0.2rem rgba(255, 107, 107, 0.25);
+  outline: none;
+}
+
+#login {
+  color: var(--cc-text-light);
+  --bs-btn-color: var(--cc-primary);
+  --bs-btn-border-color: var(--cc-primary);
+  --bs-btn-hover-color: var(--cc-text-light);
+  --bs-btn-hover-bg: var(--cc-accent-alt);
+  --bs-btn-hover-border-color: var(--cc-accent-alt-dark);
+}
+#sign-up {
+  --bs-btn-bg: var(--cc-primary);
+  --bs-btn-border-color: var(--cc-primary);
+  --bs-btn-color: var(--cc-text-light);
+  --bs-btn-hover-bg: var(--cc-accent-alt);
+  --bs-btn-hover-border-color: var(--cc-accent-alt-dark);
+}
+
+/*  make all buttons hover coral */
+.btn {
+  --bs-btn-hover-bg: var(--cc-accent-alt);
+  --bs-btn-hover-border-color: var(--cc-accent-alt-dark);
+  --bs-btn-hover-color: var(--cc-text-light);
+  --bs-btn-active-bg: var(--cc-accent-alt);
+  --bs-btn-active-border-color: var(--cc-accent-alt-dark);
+
+}
+
+/* fallback + cover plain button elements */
+.btn,
+button {
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover,
+.btn:focus,
+button:hover,
+button:focus {
+  background-color: var(--cc-accent-alt);
+  border-color: var(--cc-accent-alt);
+  color: var(--cc-text-light);
+  
+}
+
+.btn:focus-visible,
+button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(255, 107, 107, 0.35);
+}
