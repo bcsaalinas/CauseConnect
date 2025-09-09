@@ -1,22 +1,20 @@
-/* Page-specific styles for SDG section */
+/* styles for SDG section */
 body {
-    background-color: #a9e8c3;
+  background-color: #a9e8c3;
 }
 
 .sdg-section img {
-    max-width: 640px;
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
+  max-width: 640px;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
 }
 
-/* Add more space on top of each SDG list item */
 .sdg-list .list-group-item {
-    padding-top: 1rem;
+  padding-top: 1rem;
 }
 
-/* Light touch videos section tweaks (structure handled by Bootstrap utilities) */
 .videos {
-    padding: 0;
-    min-height: 0;
+  padding: 0;
+  min-height: 0;
 }
