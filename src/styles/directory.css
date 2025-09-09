@@ -1,0 +1,30 @@
+body {
+  background-color: #a9e8c3;
+}
+
+.videos {
+  padding: 5px;
+  min-height: 400px;
+  background-color: var(--cc-accent-dark);
+}
+
+.search-container {
+  padding: 1rem;
+}
+.search-container form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+.card {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}

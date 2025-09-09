@@ -181,3 +181,15 @@ button:focus-visible {
   outline: none;
   box-shadow: 0 0 0 0.2rem rgba(255, 107, 107, 0.35);
 }
+
+/* Hero section (Bootstrap-first, minimal CSS) */
+.hero {
+  background: linear-gradient(
+    180deg,
+    rgba(31, 182, 166, 0.08),
+    rgba(255, 255, 255, 0)
+  );
+}
+.hero-img {
+  max-width: 520px;
+}
