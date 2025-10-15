@@ -6,6 +6,7 @@
     <meta name="description" content="Causse Connect - Connecting Causes with People">
     <title>Contact</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/main.css">
     <link rel="stylesheet" href="./styles/contact.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,9 +14,9 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-md navbar-dark cc-header">
+        <nav class="navbar navbar-expand-md navbar-dark cc-header cc-header-minimal">
             <div class="container-fluid px-4">
-                <a href="https://bcsaalinas.github.io/CauseConnect/" class="navbar-brand d-inline-block">
+                <a href="./index.html" class="navbar-brand d-inline-block">
                     <img src="./public/logo.png" alt="Cause Connect" class="cc-brand-logo"/>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,8 +32,8 @@
                     <form role="search" class="d-flex ms-md-4 ms-0 cc-search">
                         <input class="me-md-2 me-0 flex-grow-1" type="search" placeholder="Search" aria-label="Search"/>
                     </form>
-                    <button type="button" class="btn btn-outline-primary ms-md-3 my-md-auto my-2 me-1" id="login">Login</button>
-                    <button type="button" class="btn btn-primary ms-md-3 my-md-auto my-2 me-1" id="sign-up">Sign-up</button>
+                    <button type="button" class="btn btn-pill btn-pill-outline ms-md-3 my-md-auto my-2 me-1" id="login">Login</button>
+                    <button type="button" class="btn btn-pill btn-pill-primary ms-md-3 my-md-auto my-2 me-1" id="sign-up">Sign-up</button>
                 </div>
             </div>
         </nav>
@@ -69,4 +70,53 @@
       <img src="./public/iglogo.png" class="card-img-top rounded shadow-sm" style="max-width: 150px;" alt="instagram">
     </div>
 </div>
+    <footer class="site-footer mt-0">
+      <div class="container-xl py-4">
+        <div class="row gy-4">
+          <div class="col-6 col-md-3">
+            <div class="footer-title">Explore</div>
+            <ul class="list-unstyled mb-0">
+              <li><a href="./directory.html">Directory</a></li>
+              <li><a href="./sdg-section.html">SDGs</a></li>
+              <li><a href="#">Opportunities</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="footer-title">Company</div>
+            <ul class="list-unstyled mb-0">
+              <li><a href="#">About</a></li>
+              <li><a href="#">Press</a></li>
+              <li><a href="./contact.html">Contact</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="footer-title">Support</div>
+            <ul class="list-unstyled mb-0">
+              <li><a href="#">Help Center</a></li>
+              <li><a href="#">Guides</a></li>
+              <li><a href="#">Status</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="footer-title">Legal</div>
+            <ul class="list-unstyled mb-0">
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Terms of Use</a></li>
+              <li><a href="#">Cookies</a></li>
+            </ul>
+          </div>
+        </div>
+        <hr class="divider my-4" />
+        <div class="d-flex flex-column flex-md-row justify-content-between gap-2 legal">
+          <p class="mb-0">Copyright © 2025 Cause Connect. All rights reserved.</p>
+          <div class="d-flex gap-3">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="./contact.html">Contact</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>

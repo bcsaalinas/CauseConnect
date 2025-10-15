@@ -29,17 +29,8 @@ body {
   );
   --bs-navbar-padding-y: 0.25rem;
 }
-.cc-header .navbar-brand {
-  display: flex;
-  align-items: center;
-  height: 56px;
-}
-.cc-brand-logo {
-  display: block;
-  height: 56px;
-  width: auto;
-  object-fit: contain;
-}
+.cc-header .navbar-brand { display:flex; align-items:center; height:56px; overflow:visible; }
+.cc-brand-logo { display:block; height:56px; width:auto; object-fit:contain; transform:scale(1.15); transform-origin:left center; }
 /* header brand */
 
 /* respect users who prefer reduced motion */
