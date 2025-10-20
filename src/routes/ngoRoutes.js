@@ -3,7 +3,7 @@ import { ngos } from "../data/ngos.js";
 
 const router = express.Router();
 
-// Directory con filtros básicos por query (?q=&cause=&location=)
+// Directory con filtros básicos por query 
 router.get("/", (req, res) => {
   const { q = "", cause = "", location = "" } = req.query;
   const term = q.trim().toLowerCase();

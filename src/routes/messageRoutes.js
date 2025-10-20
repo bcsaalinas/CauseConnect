@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
   });
 });
 
-// Contact (POST) — solo muestra mensaje de éxito (no guarda nada)
+// Contact (POST) — solo mensaje exito
 router.post("/", (req, res) => {
   const { name, email, message } = req.body;
 
