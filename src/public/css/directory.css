@@ -2,12 +2,6 @@ body {
   background-color: #a9e8c3;
 }
 
-.card {
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: var(--cc-accent-alt-dark);
-}
-
 .search-container {
   padding: 1rem;
 }
