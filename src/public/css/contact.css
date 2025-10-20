@@ -1,11 +1,5 @@
 /* Contact page specific styles (simple) */
 
-body {
-  background-color: #f3fffb;
-  color: var(--cc-text);
-  font-family: var(--font);
-}
-
 h1.display-1 {
   color: var(--cc-text);
   text-align: center;

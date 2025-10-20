@@ -5,6 +5,11 @@
 
 body {
   font-family: var(--font);
+  background: linear-gradient(140deg, #f7fffb, #dff8f2, #f7fffb);
+  background-size: 160% 160%;
+  animation: pageBackgroundMove 18s ease-in-out infinite;
+  color: var(--cc-text);
+  min-height: 100vh;
 }
 :root {
   --cc-accent: #1fb6a6;
@@ -35,6 +40,10 @@ body {
 
 /* respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
+  body {
+    animation: none !important;
+    background-size: 100% 100% !important;
+  }
   .cc-header,
   .hero,
   .hero-premium,
@@ -208,6 +217,39 @@ button {
   50% {
     opacity: 0.16;
   }
+}
+
+@keyframes pageBackgroundMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.page-main {
+  padding: 2rem 0;
+}
+@media (min-width: 768px) {
+  .page-main {
+    padding: 3rem 0;
+  }
+}
+
+.page-panel {
+  background-color: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 1.5rem;
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.08);
+  padding: 2rem;
+  margin-bottom: 2.5rem;
+}
+.page-panel:last-child {
+  margin-bottom: 0;
 }
 
 /* extra spacing utility for large hero */
