@@ -1,0 +1,42 @@
+<%- include('layout/header', { title, extraCss }) %>
+
+<h1 class="display-1 text-center mb-5 mt-7">Contact</h1>
+<div class="container d-flex justify-content-center mt-5">
+  <form class="p-4 border rounded shadow-lg bg-light" style="max-width: 400px; width: 100%;" method="POST" action="/contact">
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input name="name" type="text" class="form-control" id="name" placeholder="Full Name" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label">E-mail</label>
+      <input name="email" type="email" class="form-control" id="email" placeholder="example@email.com" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="message" class="form-label">Message</label>
+      <textarea name="message" class="form-control" id="message" rows="4" placeholder="Write your message..." required></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Submit</button>
+
+    <% if (flash && flash.message) { %>
+      <div class="alert alert-<%= flash.type || 'info' %> mt-3"><%= flash.message %></div>
+    <% } %>
+  </form>
+</div>
+
+<br>
+<h3 class="text-center">Social Media</h3>
+<div class="container my-5 px-4">
+  <div class="d-flex justify-content-center flex-nowrap align-items-center gap-4">
+    <div class="card border-0">
+      <img src="/images/fblogo.png" class="card-img-top rounded shadow-sm" style="max-width: 150px;" alt="facebook">
+    </div>
+    <div class="card border-0">
+      <img src="/images/iglogo.png" class="card-img-top rounded shadow-sm" style="max-width: 150px;" alt="instagram">
+    </div>
+  </div>
+</div>
+
+<%- include('layout/footer') %>
