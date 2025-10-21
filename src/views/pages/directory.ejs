@@ -1,4 +1,9 @@
-<%- include('../layouts/header', { title, page: 'directory', extraCss }) %>
+<%- include('../layouts/header', { 
+  title, 
+  page: 'directory', 
+  extraCss,
+  extraScripts: ['/js/federal-programs.js']
+}) %>
 
 <section class="page-section directory-hero snap-target" data-animate="section">
   <div class="content-max">
@@ -26,6 +31,19 @@
 
     <div class="directory-filter glass-panel fade-up" data-animate="float-card">
       <form class="directory-form" method="GET" action="/directory" data-animate="stagger" data-stagger-target=".directory-input, .directory-submit">
+        <div class="form-check mb-3">
+          <input 
+            class="form-check-input" 
+            type="checkbox" 
+            value="true" 
+            id="showFederal" 
+            name="showFederal"
+            <%= showFederal === "true" ? 'checked' : '' %>
+          >
+          <label class="form-check-label" for="showFederal">
+            Show Federal Programs
+          </label>
+        </div>
         <div class="directory-form-row">
           <label class="visually-hidden" for="directory-search">Search by name</label>
           <input
@@ -99,6 +117,85 @@
         <h3 class="h4 mb-3">No matches yet</h3>
         <p class="mb-4">Try adjusting your filters or search term to discover more organizations.</p>
         <a href="/ngos" class="btn btn-pill btn-pill-outline">Reset filters</a>
+      </div>
+    <% } %>
+
+    <% if (federalPrograms && federalPrograms.programs.length > 0) { %>
+      <div class="federal-programs mt-5">
+        <h2 class="h4 mb-4">Federal Programs</h2>
+        <div class="row g-4">
+          <% federalPrograms.programs.forEach(program => { %>
+            <div class="col-12 col-md-6">
+              <div class="program-card glass-panel p-4">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                  <h3 class="h5 mb-0"><%= program.name %></h3>
+                  <% if (program.acronym) { %>
+                    <span class="badge-soft"><%= program.acronym %></span>
+                  <% } %>
+                </div>
+                <p class="mb-3 small"><%= program.description %></p>
+                <div class="program-details small">
+                  <p class="mb-2"><strong>Focus Area:</strong> <%= program.focusArea %></p>
+                  <% if (program.responsible) { %>
+                    <p class="mb-2"><strong>Contact:</strong> <%= program.responsible %></p>
+                  <% } %>
+                  <% if (program.email) { %>
+                    <p class="mb-2"><strong>Email:</strong> <a href="mailto:<%= program.email %>"><%= program.email %></a></p>
+                  <% } %>
+                  <% if (program.website) { %>
+                    <a href="<%= program.website %>" target="_blank" class="btn btn-pill btn-pill-outline btn-sm mt-3">Learn More</a>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+
+        <% if (federalPrograms.totalPages > 1) { %>
+          <div class="pagination-controls mt-4 d-flex justify-content-center">
+            <nav aria-label="Federal programs pagination">
+              <ul class="pagination">
+                <li class="page-item <%= federalPrograms.currentPage === 1 ? 'disabled' : '' %>">
+                  <a class="page-link" href="?<%= new URLSearchParams({
+                    q: q || '',
+                    cause: cause || '',
+                    location: location || '',
+                    showFederal: 'true',
+                    page: (federalPrograms.currentPage - 1).toString()
+                  }).toString() %>" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                
+                <% for(let i = 1; i <= federalPrograms.totalPages; i++) { %>
+                  <li class="page-item <%= federalPrograms.currentPage === i ? 'active' : '' %>">
+                    <a class="page-link" href="?<%= new URLSearchParams({
+                      q: q || '',
+                      cause: cause || '',
+                      location: location || '',
+                      showFederal: 'true',
+                      page: i.toString()
+                    }).toString() %>">
+                      <%= i %>
+                    </a>
+                  </li>
+                <% } %>
+                
+                <li class="page-item <%= federalPrograms.currentPage === federalPrograms.totalPages ? 'disabled' : '' %>">
+                  <a class="page-link" href="?<%= new URLSearchParams({
+                    q: q || '',
+                    cause: cause || '',
+                    location: location || '',
+                    showFederal: 'true',
+                    page: (federalPrograms.currentPage + 1).toString()
+                  }).toString() %>" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        <% } %>
       </div>
     <% } %>
   </div>

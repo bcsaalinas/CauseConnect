@@ -3,6 +3,55 @@
   margin-inline: auto;
 }
 
+.federal-programs {
+  margin-top: 3rem;
+}
+
+.program-card {
+  height: 100%;
+  transition: transform 0.3s ease;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+}
+
+.program-card:hover {
+  transform: translateY(-5px);
+}
+
+.pagination {
+  gap: 0.5rem;
+}
+
+.pagination .page-link {
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: var(--glass-bg);
+  color: var(--text-color);
+  backdrop-filter: blur(10px);
+}
+
+.pagination .page-item.active .page-link {
+  background: var(--primary);
+  color: white;
+}
+
+.pagination .page-item.disabled .page-link {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.program-details {
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 .directory-banner {
   position: relative;
   margin-top: clamp(2rem, 5vw, 3rem);
