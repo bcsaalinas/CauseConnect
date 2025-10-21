@@ -1,14 +1,18 @@
+import dotenv from "dotenv";
+// Load environment variables FIRST before other imports
+dotenv.config();
+console.log("✓ .env loaded, API key present:", !!process.env.GLOBALGIVING_API_KEY);
+
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import helmet from "helmet";
-import dotenv from "dotenv";
 
 import pageRoutes from "./src/routes/pageRoutes.js";
 import ngoRoutes from "./src/routes/ngoRoutes.js";
 import messageRoutes from "./src/routes/messageRoutes.js";
-
-dotenv.config();
+import globalGivingRoutes from "./src/routes/api/globalgiving.js";
+import atlasRoutes from "./src/routes/api/atlas.js";
 const app = express();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -26,6 +30,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/", pageRoutes);         // "/" y "/sdgs"
 app.use("/directory", ngoRoutes);      // "/ngos"
 app.use("/contact", messageRoutes); // "/contact" (GET/POST)
+app.use("/api/gg", globalGivingRoutes); // GlobalGiving API proxy
+app.use("/api/atlas", atlasRoutes); // GlobalGiving Atlas API proxy
 
 // 404
 app.use((req, res) => {

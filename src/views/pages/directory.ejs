@@ -102,6 +102,86 @@
   </div>
 </section>
 
+<section class="page-section globalgiving-directory-section snap-target" data-animate="section" id="globalgiving">
+  <div class="content-max">
+    <div class="section-heading text-center fade-up" data-animate="stagger">
+      <p class="eyebrow text-uppercase mb-2">global projects</p>
+      <h2 data-animate="split-lines">Verified Projects from GlobalGiving</h2>
+      <p class="mb-0">Discover real-time projects making impact around the world. All projects are verified by GlobalGiving.</p>
+    </div>
+
+    <div class="directory-filter glass-panel fade-up mt-4" data-animate="float-card">
+      <div class="directory-form">
+        <div class="directory-form-row">
+          <label class="visually-hidden" for="directory-search-gg">Search projects</label>
+          <input
+            id="directory-search-gg"
+            class="form-control directory-input"
+            type="text"
+            placeholder="Search by name, cause, or location..."
+            aria-label="Search GlobalGiving projects"
+          />
+
+          <label class="visually-hidden" for="directory-country-gg">Filter by country</label>
+          <select class="form-select directory-input" id="directory-country-gg" aria-label="Filter by country">
+            <option value="">All Countries</option>
+            <option value="Mexico" selected>Mexico</option>
+            <option value="United States">United States</option>
+            <option value="Kenya">Kenya</option>
+            <option value="India">India</option>
+            <option value="Guatemala">Guatemala</option>
+            <option value="Philippines">Philippines</option>
+            <option value="Uganda">Uganda</option>
+            <option value="Nepal">Nepal</option>
+          </select>
+
+          <label class="visually-hidden" for="directory-theme-gg">Filter by theme</label>
+          <select class="form-select directory-input" id="directory-theme-gg" aria-label="Filter by theme">
+            <option value="">All Themes</option>
+            <option value="education">Education</option>
+            <option value="health">Health</option>
+            <option value="environment">Environment</option>
+            <option value="economic development">Economic Development</option>
+            <option value="children and youth">Children and Youth</option>
+            <option value="human rights">Human Rights</option>
+            <option value="disaster recovery">Disaster Recovery</option>
+          </select>
+        </div>
+
+        <div class="directory-form-helper">
+          <span class="text-muted small" id="gg-results-count">Loading...</span>
+          <div id="gg-active-filters" class="d-flex gap-2 flex-wrap"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gg-projects-grid fade-up mt-4" id="gg-directory-results" data-animate="stagger-cards">
+      <!-- Projects loaded via JavaScript -->
+      <div class="directory-card glass-panel skeleton-loader">
+        <div class="skeleton-header mb-3"></div>
+        <div class="skeleton-text mb-2"></div>
+        <div class="skeleton-text mb-3"></div>
+        <div class="skeleton-progress mb-3"></div>
+        <div class="skeleton-footer"></div>
+      </div>
+      <div class="directory-card glass-panel skeleton-loader">
+        <div class="skeleton-header mb-3"></div>
+        <div class="skeleton-text mb-2"></div>
+        <div class="skeleton-text mb-3"></div>
+        <div class="skeleton-progress mb-3"></div>
+        <div class="skeleton-footer"></div>
+      </div>
+      <div class="directory-card glass-panel skeleton-loader">
+        <div class="skeleton-header mb-3"></div>
+        <div class="skeleton-text mb-2"></div>
+        <div class="skeleton-text mb-3"></div>
+        <div class="skeleton-progress mb-3"></div>
+        <div class="skeleton-footer"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="page-section directory-showcase snap-target" data-animate="section">
   <div class="content-max">
     <div class="section-heading text-center fade-up" data-animate="stagger">
@@ -140,4 +220,5 @@
   </div>
 </section>
 
+<script src="/js/directory-globalgiving.js" defer></script>
 <%- include('../layouts/footer') %>
