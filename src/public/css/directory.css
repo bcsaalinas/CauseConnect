@@ -78,23 +78,46 @@
   color: rgba(15, 23, 42, 0.64);
 }
 
-.directory-results .row {
-  --bs-gutter-x: clamp(1.25rem, 3vw, 2rem);
-  --bs-gutter-y: clamp(1.25rem, 3vw, 2rem);
+/* Use CSS Grid for robust layout */
+.directory-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--grid-gap-desktop);
+}
+
+@media (max-width: 1199px) {
+  .directory-results {
+    gap: var(--grid-gap-tablet);
+  }
+}
+
+@media (max-width: 767.98px) {
+  .directory-results {
+    grid-template-columns: 1fr;
+    gap: var(--grid-gap-mobile);
+  }
 }
 
 .directory-card {
   position: relative;
-  gap: var(--cc-space-sm);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
+  min-height: 280px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.directory-card:hover,
-.directory-card:focus-within {
-  transform: translateY(-6px);
-  box-shadow: 0 28px 60px rgba(15, 23, 42, 0.18);
+
+.directory-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .directory-card {
+    transition: box-shadow 0.3s ease;
+  }
+  .directory-card:hover {
+    transform: none;
+  }
 }
 .directory-card .btn-outline-secondary {
   border-radius: var(--cc-radius-pill);

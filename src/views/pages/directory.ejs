@@ -71,27 +71,25 @@
   </div>
 </section>
 
-<section class="page-section directory-results snap-target" data-animate="section">
+<section class="page-section directory-results-section snap-target" data-animate="section">
   <div class="content-max">
     <% if (ngos && ngos.length) { %>
-      <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-lg-3 fade-up stagger-children" data-animate="stagger-cards" data-stagger-target=".directory-card" data-skew-target=".directory-card">
+      <div class="directory-results fade-up" data-animate="stagger-cards" data-stagger-target=".directory-card">
         <% ngos.forEach(item => { %>
-          <div class="col">
-            <article class="directory-card glass-panel h-100 p-4 d-flex flex-column reveal-mask" data-animate="mask">
-              <div class="d-flex justify-content-between align-items-start mb-3">
-                <h3 class="h5 mb-0"><%= item.name %></h3>
-                <span class="badge-soft"><%= item.cause %></span>
-              </div>
-              <p class="text-muted small mb-3"><%= item.location %></p>
-              <p class="flex-grow-1 mb-3"><%= item.blurb %></p>
-              <div class="d-flex justify-content-between align-items-center gap-2">
-                <a href="<%= item.website %>" target="_blank" class="btn btn-pill btn-sm btn-outline-secondary">Visit site</a>
-                <% if (item.contact) { %>
-                  <span class="text-muted small"><%= item.contact %></span>
-                <% } %>
-              </div>
-            </article>
-          </div>
+          <article class="directory-card glass-panel">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <h3 class="h5 mb-0"><%= item.name %></h3>
+              <span class="badge-soft"><%= item.cause %></span>
+            </div>
+            <p class="text-muted small mb-3"><%= item.location %></p>
+            <p class="flex-grow-1 mb-3"><%= item.blurb %></p>
+            <div class="d-flex justify-content-between align-items-center gap-2 mt-auto">
+              <a href="<%= item.website %>" target="_blank" class="btn btn-pill btn-sm btn-outline-secondary">Visit site</a>
+              <% if (item.contact) { %>
+                <span class="text-muted small"><%= item.contact %></span>
+              <% } %>
+            </div>
+          </article>
         <% }) %>
       </div>
     <% } else { %>
