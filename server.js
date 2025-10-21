@@ -23,9 +23,9 @@ app.use("/vendor/gsap", express.static(path.join(__dirname, "node_modules", "gsa
 app.use(express.urlencoded({ extended: true }));
 
 // Rutas
-app.use("/", pageRoutes);         // "/", "/directory", "/sdgs"
-app.use("/api/directory", ngoRoutes);  // API para datos del directorio
-app.use("/contact", messageRoutes);     // "/contact" (GET/POST)
+app.use("/", pageRoutes);         // "/" y "/sdgs"
+app.use("/directory", ngoRoutes);      // "/ngos"
+app.use("/contact", messageRoutes); // "/contact" (GET/POST)
 
 // 404
 app.use((req, res) => {
