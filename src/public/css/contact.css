@@ -1,70 +1,118 @@
-/* Contact page specific styles (simple) */
-
-h1.display-1 {
-  color: var(--cc-text);
+.contact-hero {
   text-align: center;
-  margin-top: 4rem;
+}
+.contact-hero .hero-title {
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+}
+.contact-hero p {
+  max-width: 680px;
+  margin-inline: auto;
+  color: rgba(15, 23, 42, 0.7);
 }
 
-form.p-4.border.rounded.shadow-lg.bg-light {
-  background-color: #ffffff;
-  border: 1px solid var(--cc-accent);
-  border-radius: 1rem;
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
-  max-width: 400px;
+.contact-form-section .content-max {
+  position: relative;
+}
+.contact-form-section .contact-ambient {
+  position: absolute;
+  inset: clamp(1rem, 3vw, 2rem);
+  border-radius: clamp(1.5rem, 3vw, 2.5rem);
+  background: radial-gradient(60% 60% at 20% 20%, rgba(153, 246, 228, 0.25), transparent 70%), radial-gradient(50% 50% at 80% 60%, rgba(31, 182, 166, 0.18), transparent 75%);
+  filter: blur(30px);
+  opacity: 0.6;
+  pointer-events: none;
 }
 
-form.p-4.border.rounded.shadow-lg.bg-light .form-label {
-  font-weight: 600;
-  color: var(--cc-text);
+.contact-form-section .glass-panel {
+  margin-bottom: 0;
+  position: relative;
+  z-index: 1;
 }
 
-form.p-4.border.rounded.shadow-lg.bg-light .form-control {
-  border-radius: 0.5rem;
-  border: 1px solid var(--cc-accent);
+.contact-form {
+  display: grid;
+  gap: var(--cc-space-lg);
 }
 
-form.p-4.border.rounded.shadow-lg.bg-light .form-control:focus {
-  border-color: var(--cc-accent-dark);
-  box-shadow: 0 0 0 0.2rem rgba(31, 182, 166, 0.15);
+.contact-field {
+  display: grid;
+  gap: var(--cc-space-xs);
 }
 
-form.p-4.border.rounded.shadow-lg.bg-light button[type="submit"] {
-  background-color: var(--cc-accent);
+.contact-field .form-control,
+.contact-field textarea {
+  border-radius: var(--cc-radius-md);
+  border: 1px solid var(--cc-border-subtle);
+  padding: 0.75rem 1rem;
+  transition: border-color var(--cc-transition-base), box-shadow var(--cc-transition-base);
+}
+.contact-field .form-control:focus,
+.contact-field textarea:focus {
   border-color: var(--cc-accent);
-  border-radius: 999px;
+  box-shadow: 0 0 0 0.2rem rgba(31, 182, 166, 0.12);
+  outline: none;
+}
+
+.contact-field .invalid-feedback {
+  display: none;
+  color: #d92d20;
+  font-size: 0.85rem;
+}
+.contact-field.is-invalid .invalid-feedback {
+  display: block;
+}
+
+.contact-field.is-invalid .form-control,
+.contact-field.is-invalid textarea {
+  border-color: #d92d20;
+  box-shadow: 0 0 0 0.2rem rgba(217, 45, 32, 0.12);
+}
+
+.contact-details {
+  height: 100%;
+  display: grid;
+  gap: var(--cc-space-lg);
+}
+.contact-details p {
+  color: rgba(15, 23, 42, 0.7);
+}
+.contact-details .badge-soft {
+  min-width: 72px;
+}
+
+.contact-social .social-card {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
   font-weight: 600;
+  color: var(--cc-accent-dark);
+  transition: transform var(--cc-transition-base), box-shadow var(--cc-transition-base), background var(--cc-transition-base);
+}
+.contact-social .social-card:hover,
+.contact-social .social-card:focus {
+  background: var(--cc-accent);
+  color: #fff;
+  transform: translateY(-2px);
 }
 
-form.p-4.border.rounded.shadow-lg.bg-light button[type="submit"]:hover,
-form.p-4.border.rounded.shadow-lg.bg-light button[type="submit"]:focus {
-  background-color: var(--cc-accent-dark);
-  border-color: var(--cc-accent-dark);
+.contact-flash {
+  border-radius: var(--cc-radius-md);
 }
 
-.container.my-5.px-4 {
-  max-width: 640px;
-}
-
-.container.my-5.px-4 .card {
-  background-color: transparent;
-  border: none;
-  box-shadow: none;
-}
-
-.container.my-5.px-4 .card-img-top {
-  max-width: 140px;
-  border-radius: 0.75rem;
-  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+@media (max-width: 991.98px) {
+  .contact-form {
+    margin-bottom: var(--cc-space-xl);
+  }
+  .contact-form-section .contact-ambient {
+    display: none;
+  }
 }
 
 @media (max-width: 575.98px) {
-  h1.display-1 {
-    font-size: 2.25rem;
-    margin-top: 3rem;
+  .contact-details ul {
+    gap: var(--cc-space-sm);
   }
-
-  .container.my-5.px-4 .card-img-top {
-    max-width: 110px;
+  .contact-social {
+    justify-content: center;
   }
 }

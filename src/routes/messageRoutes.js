@@ -3,10 +3,11 @@ const router = express.Router();
 
 // Contact (GET)
 router.get("/", (req, res) => {
-  res.render("contact", {
+  res.render("pages/contact", {
     title: "Contact",
+    page: "contact",
     flash: null,
-    extraCss: ["/styles/main.css", "/styles/contact.css"]
+    extraCss: []
   });
 });
 
@@ -15,17 +16,19 @@ router.post("/", (req, res) => {
   const { name, email, message } = req.body;
 
   if (!name || !email || !message) {
-    return res.status(400).render("contact", {
+    return res.status(400).render("pages/contact", {
       title: "Contact",
+      page: "contact",
       flash: { type: "danger", message: "All fields are required." },
-      extraCss: ["/styles/main.css", "/styles/contact.css"]
+      extraCss: []
     });
   }
 
-  return res.render("contact", {
+  return res.render("pages/contact", {
     title: "Contact",
+    page: "contact",
     flash: { type: "success", message: "Message sent successfully!" },
-    extraCss: ["/styles/main.css", "/styles/contact.css"]
+    extraCss: []
   });
 });
 

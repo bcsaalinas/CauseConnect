@@ -1,5 +1,5 @@
 import express from "express";
-import { ngos } from "../data/ngos.js";
+import { ngos } from "../services/data/ngos.js";
 
 const router = express.Router();
 
@@ -18,13 +18,14 @@ router.get("/", (req, res) => {
     return matchText && matchCause && matchLoc;
   });
 
-  res.render("ngos", {
+  res.render("pages/directory", {
     title: "NGO Directory",
     ngos: filtered,
     q,
     cause,
     location,
-    extraCss: ["/styles/main.css", "/styles/directory.css"]
+    page: "directory",
+    extraCss: []
   });
 });
 

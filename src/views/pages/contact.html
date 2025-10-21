@@ -13,8 +13,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <header>
-        <nav class="navbar navbar-expand-md navbar-dark cc-header cc-header-minimal">
+        <nav class="navbar navbar-expand-md navbar-dark cc-header cc-header-minimal" aria-label="Primary navigation">
             <div class="container-fluid px-4">
                 <a href="./index.html" class="navbar-brand d-inline-block">
                     <img src="../../public/images/logo.png" alt="Cause Connect" class="cc-brand-logo"/>
@@ -27,7 +28,7 @@
                         <li class="nav-item"><a class="nav-link" href="./index.html">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="./directory.html">Directory</a></li>
                         <li class="nav-item"><a class="nav-link" href="./sdg-section.html">SDGs</a></li>
-                        <li class="nav-item"><a class="nav-link" href="./contact.html">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="./contact.html" aria-current="page">Contact</a></li>
                     </ul>
                     <form role="search" class="d-flex ms-md-4 ms-0 cc-search">
                         <input class="me-md-2 me-0 flex-grow-1" type="search" placeholder="Search" aria-label="Search"/>
@@ -38,35 +39,43 @@
             </div>
         </nav>
     </header>
-    <main class="page-main">
-      <section class="container page-panel">
-        <h1 class="display-1 text-center mb-5">Contact</h1>
-        <div class="d-flex justify-content-center">
-          <form class="p-4 border rounded shadow-lg bg-light" style="max-width: 400px; width: 100%;">
-            <div class="mb-3">
-              <label for="name" class="form-label">Name</label>
-              <input type="text" class="form-control" id="name" placeholder="Full Name" required>
+    <main id="main-content" class="page-main">
+      <section class="page-section">
+        <div class="container">
+          <div class="page-panel">
+            <h1 class="display-1 text-center mb-5">Contact</h1>
+            <div class="d-flex justify-content-center">
+              <form class="p-4 border rounded shadow-lg bg-light" style="max-width: 400px; width: 100%;">
+                <div class="mb-3">
+                  <label for="name" class="form-label">Name</label>
+                  <input type="text" class="form-control" id="name" placeholder="Full Name" required>
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">E-mail</label>
+                  <input type="email" class="form-control" id="email" placeholder="example@email.com" required>
+                </div>
+                <div class="mb-3">
+                  <label for="message" class="form-label">Message</label>
+                  <textarea class="form-control" id="message" rows="4" placeholder="Write your message..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Submit</button>
+              </form>
             </div>
-            <div class="mb-3">
-              <label for="email" class="form-label">E-mail</label>
-              <input type="email" class="form-control" id="email" placeholder="example@email.com" required>
-            </div>
-            <div class="mb-3">
-              <label for="message" class="form-label">Message</label>
-              <textarea class="form-control" id="message" rows="4" placeholder="Write your message..." required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Submit</button>
-          </form>
+          </div>
         </div>
       </section>
-      <section class="container page-panel">
-        <h3 class="text-center mb-4">Social Media</h3>
-        <div class="d-flex justify-content-center flex-nowrap align-items-center gap-4">
-          <div class="card border-0">
-            <img src="../../public/images/fblogo.png" class="card-img-top rounded shadow-sm" style="max-width: 150px;" alt="facebook">
-          </div>
-          <div class="card border-0">
-            <img src="../../public/images/iglogo.png" class="card-img-top rounded shadow-sm" style="max-width: 150px;" alt="instagram">
+      <section class="page-section">
+        <div class="container">
+          <div class="page-panel">
+            <h3 class="text-center mb-4">Social Media</h3>
+            <div class="d-flex justify-content-center flex-nowrap align-items-center gap-4">
+              <div class="card border-0">
+                <img src="../../public/images/fblogo.png" class="card-img-top rounded shadow-sm" style="max-width: 150px;" alt="facebook">
+              </div>
+              <div class="card border-0">
+                <img src="../../public/images/iglogo.png" class="card-img-top rounded shadow-sm" style="max-width: 150px;" alt="instagram">
+              </div>
+            </div>
           </div>
         </div>
       </section>

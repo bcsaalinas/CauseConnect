@@ -19,8 +19,9 @@
     />
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <header>
-      <nav class="navbar navbar-expand-md navbar-dark cc-header cc-header-minimal">
+      <nav class="navbar navbar-expand-md navbar-dark cc-header cc-header-minimal" aria-label="Primary navigation">
         <div class="container-fluid px-4">
           <a href="./index.html" class="navbar-brand d-inline-block">
             <img src="../../public/images/logo.png" alt="Cause Connect" class="cc-brand-logo" />
@@ -48,7 +49,7 @@
                 <a class="nav-link" href="./directory.html">Directory</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="./sdg-section.html">SDGs</a>
+                <a class="nav-link" href="./sdg-section.html" aria-current="page">SDGs</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="./contact.html">Contact</a>
@@ -81,246 +82,251 @@
       </nav>
     </header>
 
-    <main class="page-main">
-      <div class="container page-panel" id="sdgs">
-        <h1 class="display-4 text-center mb-5">Sustainable Development Goals</h1>
+    <main id="main-content" class="page-main">
+      <section class="page-section" id="sdgs">
+        <div class="container">
+          <div class="page-panel">
+            <h1 class="display-4 text-center mb-5">Sustainable Development Goals</h1>
 
-        <div class="sdg-section mb-4 text-center">
-          <img
-            src="../../public/images/sdgs.png"
-            alt="Sustainable Development Goals"
-            class="img-fluid rounded shadow-sm"
-          />
+            <div class="sdg-section mb-4 text-center">
+              <img
+                src="../../public/images/sdgs.png"
+                alt="Sustainable Development Goals"
+                class="img-fluid rounded shadow-sm"
+              />
+            </div>
+
+            <div class="sdg-intro">
+              <p class="lead">
+                Explore the United Nations blueprint for a fairer, greener, and more inclusive world.
+                Each goal below includes a quick note so readers understand the focus at a glance.
+              </p>
+              <div class="sdg-chips">
+                <span class="sdg-chip">People</span>
+                <span class="sdg-chip">Planet</span>
+                <span class="sdg-chip">Prosperity</span>
+              </div>
+            </div>
+
+            <div class="row row-cols-1 row-cols-md-2 g-4 sdg-grid">
+              <div class="col">
+                <article class="card sdg-card h-100">
+                  <div class="card-body d-flex align-items-start gap-3">
+                    <span class="sdg-number">01</span>
+                    <div>
+                      <h3 class="h5 mb-1 sdg-card-title">No Poverty</h3>
+                      <p class="sdg-card-text">End poverty in all forms everywhere so families can live with dignity and security.</p>
+                    </div>
+                  </div>
+                </article>
+              </div>
+              <div class="col">
+                <article class="card sdg-card h-100">
+                  <div class="card-body d-flex align-items-start gap-3">
+                    <span class="sdg-number">02</span>
+                    <div>
+                      <h3 class="h5 mb-1 sdg-card-title">Zero Hunger</h3>
+                      <p class="sdg-card-text">Achieve food security, improve nutrition, and promote sustainable agriculture.</p>
+                    </div>
+                  </div>
+                </article>
+              </div>
+              <div class="col">
+                <article class="card sdg-card h-100">
+                  <div class="card-body d-flex align-items-start gap-3">
+                    <span class="sdg-number">03</span>
+                    <div>
+                      <h3 class="h5 mb-1 sdg-card-title">Good Health</h3>
+                      <p class="sdg-card-text">Ensure healthy lives and promote well-being for people of all ages.</p>
+                    </div>
+                  </div>
+                </article>
+              </div>
+              <div class="col">
+                <article class="card sdg-card h-100">
+                  <div class="card-body d-flex align-items-start gap-3">
+                    <span class="sdg-number">04</span>
+                    <div>
+                      <h3 class="h5 mb-1 sdg-card-title">Quality Education</h3>
+                      <p class="sdg-card-text">Guarantee inclusive and equitable education with lifelong learning opportunities.</p>
+                    </div>
+                  </div>
+                </article>
+              </div>
+              <div class="col">
+                <article class="card sdg-card h-100">
+                  <div class="card-body d-flex align-items-start gap-3">
+                    <span class="sdg-number">05</span>
+                    <div>
+                      <h3 class="h5 mb-1 sdg-card-title">Gender Equality</h3>
+                      <p class="sdg-card-text">Empower women and girls and remove barriers that limit equal participation.</p>
+                    </div>
+                  </div>
+                </article>
+              </div>
+              <div class="col">
+                <article class="card sdg-card h-100">
+                  <div class="card-body d-flex align-items-start gap-3">
+                    <span class="sdg-number">06</span>
+                    <div>
+                      <h3 class="h5 mb-1 sdg-card-title">Clean Water &amp; Sanitation</h3>
+                      <p class="sdg-card-text">Provide safe water, sanitation, and hygiene for every community.</p>
+                    </div>
+                  </div>
+                </article>
+              </div>
+              <div class="col">
+                <article class="card sdg-card h-100">
+                  <div class="card-body d-flex align-items-start gap-3">
+                    <span class="sdg-number">07</span>
+                    <div>
+                      <h3 class="h5 mb-1 sdg-card-title">Affordable &amp; Clean Energy</h3>
+                      <p class="sdg-card-text">Expand access to reliable, modern, and sustainable energy sources.</p>
+                    </div>
+                  </div>
+                </article>
+              </div>
+              <div class="col">
+                <article class="card sdg-card h-100">
+                  <div class="card-body d-flex align-items-start gap-3">
+                    <span class="sdg-number">08</span>
+                    <div>
+                      <h3 class="h5 mb-1 sdg-card-title">Decent Work &amp; Growth</h3>
+                      <p class="sdg-card-text">Promote sustained economic growth and decent jobs for everyone.</p>
+                    </div>
+                  </div>
+                </article>
+              </div>
+              <div class="col">
+                <article class="card sdg-card h-100">
+                  <div class="card-body d-flex align-items-start gap-3">
+                    <span class="sdg-number">09</span>
+                    <div>
+                      <h3 class="h5 mb-1 sdg-card-title">Industry, Innovation &amp; Infrastructure</h3>
+                      <p class="sdg-card-text">Build resilient infrastructure and foster inclusive innovation.</p>
+                    </div>
+                  </div>
+                </article>
+              </div>
+              <div class="col">
+                <article class="card sdg-card h-100">
+                  <div class="card-body d-flex align-items-start gap-3">
+                    <span class="sdg-number">10</span>
+                    <div>
+                      <h3 class="h5 mb-1 sdg-card-title">Reduced Inequalities</h3>
+                      <p class="sdg-card-text">Reduce inequality within and among countries so opportunity is shared.</p>
+                    </div>
+                  </div>
+                </article>
+              </div>
+              <div class="col">
+                <article class="card sdg-card h-100">
+                  <div class="card-body d-flex align-items-start gap-3">
+                    <span class="sdg-number">11</span>
+                    <div>
+                      <h3 class="h5 mb-1 sdg-card-title">Sustainable Cities</h3>
+                      <p class="sdg-card-text">Create safe, inclusive, and resilient cities and communities.</p>
+                    </div>
+                  </div>
+                </article>
+              </div>
+              <div class="col">
+                <article class="card sdg-card h-100">
+                  <div class="card-body d-flex align-items-start gap-3">
+                    <span class="sdg-number">12</span>
+                    <div>
+                      <h3 class="h5 mb-1 sdg-card-title">Responsible Consumption</h3>
+                      <p class="sdg-card-text">Ensure sustainable consumption and production patterns in daily life.</p>
+                    </div>
+                  </div>
+                </article>
+              </div>
+              <div class="col">
+                <article class="card sdg-card h-100">
+                  <div class="card-body d-flex align-items-start gap-3">
+                    <span class="sdg-number">13</span>
+                    <div>
+                      <h3 class="h5 mb-1 sdg-card-title">Climate Action</h3>
+                      <p class="sdg-card-text">Take urgent steps to combat climate change and its impacts.</p>
+                    </div>
+                  </div>
+                </article>
+              </div>
+              <div class="col">
+                <article class="card sdg-card h-100">
+                  <div class="card-body d-flex align-items-start gap-3">
+                    <span class="sdg-number">14</span>
+                    <div>
+                      <h3 class="h5 mb-1 sdg-card-title">Life Below Water</h3>
+                      <p class="sdg-card-text">Protect oceans, seas, and marine resources for future generations.</p>
+                    </div>
+                  </div>
+                </article>
+              </div>
+              <div class="col">
+                <article class="card sdg-card h-100">
+                  <div class="card-body d-flex align-items-start gap-3">
+                    <span class="sdg-number">15</span>
+                    <div>
+                      <h3 class="h5 mb-1 sdg-card-title">Life on Land</h3>
+                      <p class="sdg-card-text">Safeguard forests, biodiversity, and ecosystems on land.</p>
+                    </div>
+                  </div>
+                </article>
+              </div>
+              <div class="col">
+                <article class="card sdg-card h-100">
+                  <div class="card-body d-flex align-items-start gap-3">
+                    <span class="sdg-number">16</span>
+                    <div>
+                      <h3 class="h5 mb-1 sdg-card-title">Peace, Justice &amp; Institutions</h3>
+                      <p class="sdg-card-text">Promote peaceful societies, provide access to justice, and build strong institutions.</p>
+                    </div>
+                  </div>
+                </article>
+              </div>
+              <div class="col">
+                <article class="card sdg-card h-100">
+                  <div class="card-body d-flex align-items-start gap-3">
+                    <span class="sdg-number">17</span>
+                    <div>
+                      <h3 class="h5 mb-1 sdg-card-title">Partnerships for the Goals</h3>
+                      <p class="sdg-card-text">Strengthen global cooperation so every goal moves forward together.</p>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
         </div>
+      </section>
 
-        <div class="sdg-intro">
-          <p class="lead">
-            Explore the United Nations blueprint for a fairer, greener, and more inclusive world.
-            Each goal below includes a quick note so readers understand the focus at a glance.
-          </p>
-          <div class="sdg-chips">
-            <span class="sdg-chip">People</span>
-            <span class="sdg-chip">Planet</span>
-            <span class="sdg-chip">Prosperity</span>
-          </div>
-        </div>
-
-        <div class="row row-cols-1 row-cols-md-2 g-4 sdg-grid">
-          <div class="col">
-            <article class="card sdg-card h-100">
-              <div class="card-body d-flex align-items-start gap-3">
-                <span class="sdg-number">01</span>
-                <div>
-                  <h3 class="h5 mb-1 sdg-card-title">No Poverty</h3>
-                  <p class="sdg-card-text">End poverty in all forms everywhere so families can live with dignity and security.</p>
+      <section class="page-section">
+        <div class="container">
+          <div class="page-panel">
+            <h2 class="h3 text-center mb-4">More Information About the 17 SDGs</h2>
+            <div class="row g-4 justify-content-center">
+              <div class="col-md-6">
+                <div class="ratio ratio-16x9 rounded overflow-hidden shadow-sm">
+                  <iframe
+                    src="https://www.youtube.com/embed/o08ykAqLOxk"
+                    title="What are the SDGs?"
+                    allowfullscreen
+                  ></iframe>
                 </div>
               </div>
-            </article>
-          </div>
-          <div class="col">
-            <article class="card sdg-card h-100">
-              <div class="card-body d-flex align-items-start gap-3">
-                <span class="sdg-number">02</span>
-                <div>
-                  <h3 class="h5 mb-1 sdg-card-title">Zero Hunger</h3>
-                  <p class="sdg-card-text">Achieve food security, improve nutrition, and promote sustainable agriculture.</p>
+              <div class="col-md-6">
+                <div class="ratio ratio-16x9 rounded overflow-hidden shadow-sm">
+                  <iframe
+                    src="https://www.youtube.com/embed/enGJyhu6Xr0"
+                    title="The 17 Goals Explained"
+                    allowfullscreen
+                  ></iframe>
                 </div>
               </div>
-            </article>
-          </div>
-          <div class="col">
-            <article class="card sdg-card h-100">
-              <div class="card-body d-flex align-items-start gap-3">
-                <span class="sdg-number">03</span>
-                <div>
-                  <h3 class="h5 mb-1 sdg-card-title">Good Health</h3>
-                  <p class="sdg-card-text">Ensure healthy lives and promote well-being for people of all ages.</p>
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="col">
-            <article class="card sdg-card h-100">
-              <div class="card-body d-flex align-items-start gap-3">
-                <span class="sdg-number">04</span>
-                <div>
-                  <h3 class="h5 mb-1 sdg-card-title">Quality Education</h3>
-                  <p class="sdg-card-text">Guarantee inclusive and equitable education with lifelong learning opportunities.</p>
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="col">
-            <article class="card sdg-card h-100">
-              <div class="card-body d-flex align-items-start gap-3">
-                <span class="sdg-number">05</span>
-                <div>
-                  <h3 class="h5 mb-1 sdg-card-title">Gender Equality</h3>
-                  <p class="sdg-card-text">Empower women and girls and remove barriers that limit equal participation.</p>
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="col">
-            <article class="card sdg-card h-100">
-              <div class="card-body d-flex align-items-start gap-3">
-                <span class="sdg-number">06</span>
-                <div>
-                  <h3 class="h5 mb-1 sdg-card-title">Clean Water &amp; Sanitation</h3>
-                  <p class="sdg-card-text">Provide safe water, sanitation, and hygiene for every community.</p>
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="col">
-            <article class="card sdg-card h-100">
-              <div class="card-body d-flex align-items-start gap-3">
-                <span class="sdg-number">07</span>
-                <div>
-                  <h3 class="h5 mb-1 sdg-card-title">Affordable &amp; Clean Energy</h3>
-                  <p class="sdg-card-text">Expand access to reliable, modern, and sustainable energy sources.</p>
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="col">
-            <article class="card sdg-card h-100">
-              <div class="card-body d-flex align-items-start gap-3">
-                <span class="sdg-number">08</span>
-                <div>
-                  <h3 class="h5 mb-1 sdg-card-title">Decent Work &amp; Growth</h3>
-                  <p class="sdg-card-text">Promote sustained economic growth and decent jobs for everyone.</p>
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="col">
-            <article class="card sdg-card h-100">
-              <div class="card-body d-flex align-items-start gap-3">
-                <span class="sdg-number">09</span>
-                <div>
-                  <h3 class="h5 mb-1 sdg-card-title">Industry, Innovation &amp; Infrastructure</h3>
-                  <p class="sdg-card-text">Build resilient infrastructure and foster inclusive innovation.</p>
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="col">
-            <article class="card sdg-card h-100">
-              <div class="card-body d-flex align-items-start gap-3">
-                <span class="sdg-number">10</span>
-                <div>
-                  <h3 class="h5 mb-1 sdg-card-title">Reduced Inequalities</h3>
-                  <p class="sdg-card-text">Reduce inequality within and among countries so opportunity is shared.</p>
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="col">
-            <article class="card sdg-card h-100">
-              <div class="card-body d-flex align-items-start gap-3">
-                <span class="sdg-number">11</span>
-                <div>
-                  <h3 class="h5 mb-1 sdg-card-title">Sustainable Cities</h3>
-                  <p class="sdg-card-text">Create safe, inclusive, and resilient cities and communities.</p>
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="col">
-            <article class="card sdg-card h-100">
-              <div class="card-body d-flex align-items-start gap-3">
-                <span class="sdg-number">12</span>
-                <div>
-                  <h3 class="h5 mb-1 sdg-card-title">Responsible Consumption</h3>
-                  <p class="sdg-card-text">Ensure sustainable consumption and production patterns in daily life.</p>
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="col">
-            <article class="card sdg-card h-100">
-              <div class="card-body d-flex align-items-start gap-3">
-                <span class="sdg-number">13</span>
-                <div>
-                  <h3 class="h5 mb-1 sdg-card-title">Climate Action</h3>
-                  <p class="sdg-card-text">Take urgent steps to combat climate change and its impacts.</p>
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="col">
-            <article class="card sdg-card h-100">
-              <div class="card-body d-flex align-items-start gap-3">
-                <span class="sdg-number">14</span>
-                <div>
-                  <h3 class="h5 mb-1 sdg-card-title">Life Below Water</h3>
-                  <p class="sdg-card-text">Protect oceans, seas, and marine resources for future generations.</p>
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="col">
-            <article class="card sdg-card h-100">
-              <div class="card-body d-flex align-items-start gap-3">
-                <span class="sdg-number">15</span>
-                <div>
-                  <h3 class="h5 mb-1 sdg-card-title">Life on Land</h3>
-                  <p class="sdg-card-text">Safeguard forests, biodiversity, and ecosystems on land.</p>
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="col">
-            <article class="card sdg-card h-100">
-              <div class="card-body d-flex align-items-start gap-3">
-                <span class="sdg-number">16</span>
-                <div>
-                  <h3 class="h5 mb-1 sdg-card-title">Peace, Justice &amp; Institutions</h3>
-                  <p class="sdg-card-text">Promote peaceful societies, provide access to justice, and build strong institutions.</p>
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="col">
-            <article class="card sdg-card h-100">
-              <div class="card-body d-flex align-items-start gap-3">
-                <span class="sdg-number">17</span>
-                <div>
-                  <h3 class="h5 mb-1 sdg-card-title">Partnerships for the Goals</h3>
-                  <p class="sdg-card-text">Strengthen global cooperation so every goal moves forward together.</p>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-      </div>
-
-    <section class="videos py-4 bg-light page-panel">
-      <div class="container">
-        <h2 class="h3 text-center mb-4">More Information About the 17 SDGs</h2>
-        <div class="row g-4 justify-content-center">
-          <div class="col-md-6">
-            <div class="ratio ratio-16x9 rounded overflow-hidden shadow-sm">
-              <iframe
-                src="https://www.youtube.com/embed/o08ykAqLOxk"
-                title="What are the SDGs?"
-                allowfullscreen
-              ></iframe>
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="ratio ratio-16x9 rounded overflow-hidden shadow-sm">
-              <iframe
-                src="https://www.youtube.com/embed/enGJyhu6Xr0"
-                title="The 17 Goals Explained"
-                allowfullscreen
-              ></iframe>
-            </div>
-          </div>
         </div>
-      </div>
-    </section>
+      </section>
     </main>
 
     <footer class="site-footer mt-0">

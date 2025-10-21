@@ -1,7 +1,11 @@
-<%- include('layout/header', { title, extraCss }) %>
+<%- include('../layouts/header', { title, page: 'home', extraCss }) %>
 
-<section class="hero hero-premium position-relative overflow-hidden">
-  <!-- Mobile menu toggle inside hero -->
+<section class="hero hero-premium position-relative overflow-hidden snap-target" data-animate="hero">
+  <div class="hero-ambient" aria-hidden="true">
+    <span class="hero-ambient__layer hero-ambient__layer--one" data-parallax="0.12"></span>
+    <span class="hero-ambient__layer hero-ambient__layer--two" data-parallax="0.18"></span>
+    <span class="hero-ambient__layer hero-ambient__layer--three" data-parallax="0.24"></span>
+  </div>
   <button
     class="navbar-toggler hero-toggler d-md-none navbar-light"
     type="button"
@@ -14,24 +18,216 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="container-xl py-5 py-md-6">
-    <div class="row justify-content-center">
-      <div class="col-12 col-xl-10 text-center">
-        <p class="eyebrow text-uppercase mb-2">Cause Connect</p>
-        <h1 class="hero-title mb-3">Connecting causes with people</h1>
-        <p class="hero-subtitle mx-auto mb-4 mb-md-5">
-          Discover NGOs, projects, and opportunities aligned with the Sustainable Development Goals.
-        </p>
-        <div class="d-inline-flex flex-wrap gap-2 justify-content-center">
-          <a href="/ngos" class="btn btn-pill btn-pill-primary">Explore directory</a>
-          <a href="/sdgs" class="btn btn-pill btn-pill-outline">Learn about the SDGs</a>
+  <div class="container-xl hero-shell py-5 py-md-6">
+    <div class="row align-items-center g-5 g-xl-4 justify-content-between">
+      <div class="col-12 col-md-6 col-xl-5 text-center text-md-start hero-copy fade-up" data-animate="hero-copy">
+        <div class="hero-copy-inner">
+          <p class="eyebrow text-uppercase mb-3">Cause Connect</p>
+          <h1 class="hero-title mb-3" data-animate="split-lines">Connecting causes with people</h1>
+          <p class="hero-subtitle mb-4" data-animate="fade">
+            Discover NGOs, projects, and opportunities aligned with the Sustainable Development Goals.
+          </p>
+          <div class="d-inline-flex flex-wrap gap-2 justify-content-center justify-content-lg-start" data-animate="stagger" data-stagger-target=".btn">
+            <a href="/ngos" class="btn btn-pill btn-pill-primary" data-animate="magnet">Explore directory</a>
+            <a href="/sdgs" class="btn btn-pill btn-pill-outline" data-animate="magnet">Learn about the SDGs</a>
+          </div>
         </div>
-        <div class="mt-5">
-          <img src="/images/sdgs.png" alt="Sustainable Development Goals" class="hero-visual img-fluid"/>
+      </div>
+      <div class="col-12 col-md-6 col-xl-6 position-relative hero-visual-wrap fade-up" data-animate="hero-visual" data-parallax="0.18">
+        <div class="hero-media-inner">
+          <div class="hero-glass-panel glass-panel mx-auto reveal-mask" data-animate="mask">
+            <img src="/images/logo.png" alt="Cause Connect logo" class="hero-visual hero-logo img-fluid"/>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<%- include('layout/footer') %>
+<section class="page-section hero-highlights snap-target" data-animate="section">
+  <div class="content-max">
+    <div class="section-heading fade-up" data-animate="stagger">
+      <p class="eyebrow text-uppercase">why cause connect</p>
+      <h2>Bringing communities and changemakers together</h2>
+      <p>We help people discover meaningful initiatives, while empowering NGOs with visibility and support.</p>
+    </div>
+    <div class="row g-4" data-animate="stagger-cards" data-stagger-target=".glass-panel" data-skew-target=".tilt-card">
+      <div class="col-12 col-md-6 col-xl-3">
+        <div class="glass-panel h-100 p-4 tilt-card fade-up reveal-mask" data-animate="mask">
+          <div class="badge-soft mb-3">01</div>
+          <h3 class="h5 mb-2">Curated NGO insights</h3>
+          <p class="mb-0">Browse verified organizations, mission statements, and impact snapshots tailored to your interests.</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-xl-3">
+        <div class="glass-panel h-100 p-4 tilt-card fade-up reveal-mask" data-animate="mask">
+          <div class="badge-soft mb-3">02</div>
+          <h3 class="h5 mb-2">Smart search &amp; filters</h3>
+          <p class="mb-0">Find causes by location, SDG, or focus area, then save opportunities as you plan your support.</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-xl-3">
+        <div class="glass-panel h-100 p-4 tilt-card fade-up reveal-mask" data-animate="mask">
+          <div class="badge-soft mb-3">03</div>
+          <h3 class="h5 mb-2">Community stories</h3>
+          <p class="mb-0">Explore testimonials from volunteers and partners that show how collaboration drives real change.</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-xl-3">
+        <div class="glass-panel h-100 p-4 tilt-card fade-up reveal-mask" data-animate="mask">
+          <div class="badge-soft mb-3">04</div>
+          <h3 class="h5 mb-2">Aligned with the SDGs</h3>
+          <p class="mb-0">Stay informed on progress toward the Sustainable Development Goals and discover how to contribute.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page-section pinned-story snap-target" data-animate="section">
+  <div class="content-max story-shell">
+    <div class="section-heading text-center text-lg-start fade-up" data-animate="stagger">
+      <p class="eyebrow text-uppercase mb-2">inside the platform</p>
+      <h2>Every cause has a story worth amplifying</h2>
+      <p>Follow a changemaker’s journey from discovery to measurable impact across the Cause Connect ecosystem.</p>
+    </div>
+    <div class="story-pin" data-animate="pinned-track">
+      <div class="story-stage" data-story-step="discover">
+        <div class="story-chapter">
+          <div class="story-chapter__media reveal-mask" data-animate="mask">
+            <img src="/images/Discover.jpg" alt="People browsing verified organizations">
+          </div>
+          <div class="story-chapter__copy glass-panel p-4 p-lg-5">
+            <span class="badge-soft d-inline-flex align-items-center px-3 py-1 text-uppercase small mb-2">chapter 01</span>
+            <h3 class="h4 mb-3">Find an organization you believe in</h3>
+            <p class="mb-0">Search by SDG, location, or focus area. Curated stories and transparent metrics help you discover organizations that match your purpose.</p>
+          </div>
+        </div>
+      </div>
+      <div class="story-stage" data-story-step="join">
+        <div class="story-chapter">
+          <div class="story-chapter__media reveal-mask" data-animate="mask">
+            <img src="/images/beAmazing.jpg" alt="Volunteers coordinating together">
+          </div>
+          <div class="story-chapter__copy glass-panel p-4 p-lg-5">
+            <span class="badge-soft d-inline-flex align-items-center px-3 py-1 text-uppercase small mb-2">chapter 02</span>
+            <h3 class="h4 mb-3">Join in and stay connected</h3>
+            <p class="mb-0">Create an account, follow impact updates, and coordinate with teams. Cause Connect keeps every conversation and opportunity in one place.</p>
+          </div>
+        </div>
+      </div>
+      <div class="story-stage" data-story-step="impact">
+        <div class="story-chapter">
+          <div class="story-chapter__media reveal-mask" data-animate="mask">
+            <img src="/images/helpOut.jpg" alt="Volunteer helping the community">
+          </div>
+          <div class="story-chapter__copy glass-panel p-4 p-lg-5">
+            <span class="badge-soft d-inline-flex align-items-center px-3 py-1 text-uppercase small mb-2">chapter 03</span>
+            <h3 class="h4 mb-3">Help out and see the impact</h3>
+            <p class="mb-0">Log your actions, share results, and celebrate community wins. Real-time progress dashboards show how every contribution moves the mission forward.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page-section hero-stats snap-target" data-animate="metrics">
+  <div class="content-max">
+    <div class="row gy-4 align-items-center">
+      <div class="col-lg-5">
+        <div class="section-heading text-lg-start text-center fade-up" data-animate="stagger">
+          <p class="eyebrow text-uppercase">impact at a glance</p>
+          <h2>Growing a network of hope</h2>
+          <p>Cause Connect helps NGOs gain visibility and support while empowering citizens to take action where it matters most.</p>
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <div class="row g-4 justify-content-center" data-animate="stagger-cards" data-stagger-target=".glass-panel">
+          <div class="col-6 col-md-4">
+            <div class="glass-panel p-4 text-center fade-up reveal-mask" data-animate="mask">
+              <div class="display-5 fw-bold mb-2" data-animate="counter" data-counter-end="120" data-counter-suffix="+">120+</div>
+              <p class="mb-0 small text-muted text-uppercase">active ngos</p>
+            </div>
+          </div>
+          <div class="col-6 col-md-4">
+            <div class="glass-panel p-4 text-center fade-up reveal-mask" data-animate="mask">
+              <div class="display-5 fw-bold mb-2" data-animate="counter" data-counter-end="25">25</div>
+              <p class="mb-0 small text-muted text-uppercase">sdgs represented</p>
+            </div>
+          </div>
+          <div class="col-6 col-md-4">
+            <div class="glass-panel p-4 text-center fade-up reveal-mask" data-animate="mask">
+              <div class="display-5 fw-bold mb-2" data-animate="counter" data-counter-end="8000" data-counter-format="compact">8k</div>
+              <p class="mb-0 small text-muted text-uppercase">community actions</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page-section hero-testimonials snap-target" data-animate="section">
+  <div class="content-max">
+    <div class="section-heading fade-up" data-animate="stagger">
+      <p class="eyebrow text-uppercase">voices from the field</p>
+      <h2>Real people, real impact</h2>
+      <p>Stories from organizations and supporters who use Cause Connect to collaborate and create change.</p>
+    </div>
+    <div class="testimonial-carousel" data-animate="testimonial-carousel">
+      <div class="testimonial-track">
+        <article class="testimonial-slide glass-panel p-4 d-flex flex-column justify-content-between">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="avatar-circle">MJ</div>
+            <div>
+              <strong>María Jiménez</strong>
+              <p class="mb-0 text-muted small">Director, Green Horizons</p>
+            </div>
+          </div>
+          <p class="mb-0">“Cause Connect gave our environmental programs a wider reach. Volunteers now discover us faster and support flows in more consistently.”</p>
+        </article>
+        <article class="testimonial-slide glass-panel p-4 d-flex flex-column justify-content-between">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="avatar-circle">AC</div>
+            <div>
+              <strong>Alex Castillo</strong>
+              <p class="mb-0 text-muted small">Volunteer &amp; donor</p>
+            </div>
+          </div>
+          <p class="mb-0">“The directory helped me find causes that match my skills. It’s like a guide that makes supporting local initiatives effortless.”</p>
+        </article>
+        <article class="testimonial-slide glass-panel p-4 d-flex flex-column justify-content-between">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="avatar-circle">LS</div>
+            <div>
+              <strong>Luis Serrano</strong>
+              <p class="mb-0 text-muted small">Community Organizer</p>
+            </div>
+          </div>
+          <p class="mb-0">“We showcase neighborhood projects and coordinate volunteers in a fraction of the time thanks to Cause Connect’s storytelling tools.”</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page-section hero-cta snap-target" data-animate="section">
+  <div class="content-max">
+    <div class="cta-band glass-panel p-4 p-md-5 text-center text-md-start fade-up" data-animate="mask">
+      <div class="row align-items-center g-4" data-animate="stagger" data-stagger-target=".btn">
+        <div class="col-md" data-animate="stagger">
+          <p class="eyebrow text-uppercase mb-2">ready to act?</p>
+          <h2 class="mb-3">Support initiatives that matter to you</h2>
+          <p class="mb-0 text-white-50">Explore the directory, learn about the Sustainable Development Goals, and start making a difference today.</p>
+        </div>
+        <div class="col-md-auto d-flex flex-column flex-md-row gap-2 justify-content-center">
+          <a href="/directory" class="btn btn-pill btn-pill-primary" data-animate="magnet">Browse directory</a>
+          <a href="/contact" class="btn btn-pill btn-pill-outline" data-animate="magnet">Partner with us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../layouts/footer') %>

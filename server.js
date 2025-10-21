@@ -4,9 +4,9 @@ import { fileURLToPath } from "url";
 import helmet from "helmet";
 import dotenv from "dotenv";
 
-import pageRoutes from "./routes/pageRoutes.js";
-import ngoRoutes from "./routes/ngoRoutes.js";
-import messageRoutes from "./routes/messageRoutes.js";
+import pageRoutes from "./src/routes/pageRoutes.js";
+import ngoRoutes from "./src/routes/ngoRoutes.js";
+import messageRoutes from "./src/routes/messageRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -17,8 +17,9 @@ app.use(helmet({ contentSecurityPolicy: false }));
 
 // EJS y estáticos
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
-app.use(express.static(path.join(__dirname, "public")));
+app.set("views", path.join(__dirname, "src", "views"));
+app.use(express.static(path.join(__dirname, "src", "public")));
+app.use("/vendor/gsap", express.static(path.join(__dirname, "node_modules", "gsap")));
 app.use(express.urlencoded({ extended: true }));
 
 // Rutas
@@ -28,8 +29,9 @@ app.use("/contact", messageRoutes); // "/contact" (GET/POST)
 
 // 404
 app.use((req, res) => {
-  res.status(404).render("index", {
+  res.status(404).render("pages/index", {
     title: "CauseConnect",
+    page: "home",
     extraCss: [],
     notFound: true
   });

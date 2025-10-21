@@ -3,17 +3,18 @@ const router = express.Router();
 
 // Home
 router.get("/", (req, res) => {
-  res.render("index", {
+  res.render("pages/index", {
     title: "Cause Connect",
-    extraCss: ["/styles/main.css"]
+    page: "home",
+    extraCss: []
   });
 });
 
-// SDGs
 router.get("/sdgs", (req, res) => {
-  res.render("sdgs", {
+  res.render("pages/sdg-section", {
     title: "Cause Connect - SDGs",
-    extraCss: ["/styles/main.css", "/styles/sdg-section.css"]
+    page: "sdgs",
+    extraCss: []
   });
 });
 
