@@ -586,9 +586,10 @@ Scroll Storytelling Upgrade
 
 **Final Redesign Step: Polishing the GSAP Animations**
 
-**Use of Gen AI:** Heavy usage. This was my first time using GSAP for real animations, so I spent a lot of time with the GSAP documentation and asking AI questions like "how do I make cards stagger on scroll?" and "what's the difference between ScrollTrigger and regular timelines?" 
+**Use of Gen AI:** Heavy usage. This was my first time using GSAP for real animations, so I spent a lot of time with the GSAP documentation and asking AI questions like "how do I make cards stagger on scroll?" and "what's the difference between ScrollTrigger and regular timelines?"
 
 **What I Actually Did:**
+
 - Read through GSAP docs to understand the basics - timelines, tweens, and the ScrollTrigger plugin
 - Started with simple fade-ups on the homepage and gradually added more complex stuff
 - Used AI to help debug timing issues - like when cards would appear too fast or overlap weirdly
@@ -611,6 +612,7 @@ Scroll Storytelling Upgrade
 ✅ Learned to use `will-change` CSS property and batch animations together
 
 **What I Learned:**
+
 - GSAP is super powerful but has a learning curve - documentation is your friend
 - Animation timing is more art than science - had to tweak values a lot
 - Accessibility matters - not everyone wants animations (reduced-motion)
@@ -619,6 +621,7 @@ Scroll Storytelling Upgrade
 - Counter animations are surprisingly tricky to get smooth
 
 **Resources Used:**
+
 - GSAP Documentation (https://gsap.com/docs)
 - GSAP ScrollTrigger docs specifically
 - CodePen examples from GSAP community
@@ -629,6 +632,7 @@ Scroll Storytelling Upgrade
 "GSAP ended up being way cooler than I expected! At first it felt overwhelming with all the options, but once I understood timelines and ScrollTrigger, everything clicked. The best part was seeing the cards actually animate on scroll - made the site feel professional. I definitely relied on AI to understand the concepts faster, but I made sure to test everything myself and understand WHY it worked, not just copy-paste. Proud of how the animations turned out, even though it took longer than I thought!"
 
 **Key Files Modified:**
+
 - `src/public/js/gsap-animations.js` - Main animation controller
 - `src/public/css/main.css` - Added animation utility classes
 - All EJS templates - Added `data-animate` attributes
