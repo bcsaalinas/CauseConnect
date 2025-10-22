@@ -27,43 +27,49 @@
     <div class="directory-filter glass-panel fade-up" data-animate="float-card">
       <form class="directory-form" method="GET" action="/directory" data-animate="stagger" data-stagger-target=".directory-input, .directory-submit">
         <div class="directory-form-row">
-          <label class="visually-hidden" for="directory-search">Search by name</label>
+          <label class="visually-hidden" for="directory-search">Search by name or mission</label>
           <input
             id="directory-search"
             class="form-control directory-input"
             type="text"
             name="q"
-            placeholder="Search by name..."
+            placeholder="Search organizations..."
             value="<%= q || '' %>"
           />
 
           <label class="visually-hidden" for="directory-cause">Filter by cause</label>
           <select class="form-select directory-input" id="directory-cause" name="cause">
-            <option value="">Select cause</option>
-            <option value="Education" <%= cause==='Education'?'selected':'' %>>Education</option>
-            <option value="Environment" <%= cause==='Environment'?'selected':'' %>>Environment</option>
-            <option value="Health" <%= cause==='Health'?'selected':'' %>>Health</option>
+            <option value="">All Causes</option>
+            <% if (causes && causes.length) { %>
+              <% causes.forEach(c => { %>
+                <option value="<%= c %>" <%= cause===c?'selected':'' %>><%= c %></option>
+              <% }) %>
+            <% } %>
           </select>
 
-          <label class="visually-hidden" for="directory-location">Filter by location</label>
+          <label class="visually-hidden" for="directory-location">Filter by city</label>
           <select class="form-select directory-input" id="directory-location" name="location">
-            <option value="">Select location</option>
-            <option value="Guadalajara" <%= location==='Guadalajara'?'selected':'' %>>Guadalajara</option>
-            <option value="Zapopan" <%= location==='Zapopan'?'selected':'' %>>Zapopan</option>
-            <option value="Tlaquepaque" <%= location==='Tlaquepaque'?'selected':'' %>>Tlaquepaque</option>
-            <option value="Jalisco" <%= location==='Jalisco'?'selected':'' %>>Regional / Jalisco</option>
+            <option value="">All Cities</option>
+            <% if (cities && cities.length) { %>
+              <% cities.forEach(city => { %>
+                <option value="<%= city %>" <%= location===city?'selected':'' %>><%= city %></option>
+              <% }) %>
+            <% } %>
           </select>
 
           <button type="submit" class="btn btn-pill btn-pill-primary directory-submit" data-animate="magnet">Search</button>
         </div>
         <div class="directory-form-helper">
-          <% const filtered = (ngos && ngos.length) ? ngos.length : 0; %>
-          <span class="text-muted small"><%= filtered %> <%= filtered === 1 ? 'result' : 'results' %></span>
+          <% const filtered = totalResults || (ngos && ngos.length) || 0; %>
+          <span class="text-muted small"><%= filtered %> <%= filtered === 1 ? 'organization' : 'organizations' %> found</span>
+          <% if (q) { %>
+            <span class="badge-soft">Search: "<%= q %>"</span>
+          <% } %>
           <% if (cause) { %>
             <span class="badge-soft">Cause: <%= cause %></span>
           <% } %>
           <% if (location) { %>
-            <span class="badge-soft">Location: <%= location %></span>
+            <span class="badge-soft">City: <%= location %></span>
           <% } %>
         </div>
       </form>
@@ -73,20 +79,55 @@
 
 <section class="page-section directory-results-section snap-target" data-animate="section">
   <div class="content-max">
-    <% if (ngos && ngos.length) { %>
+    <% if (error) { %>
+      <div class="directory-empty glass-panel text-center p-5 fade-up" data-animate="float-card">
+        <h3 class="h4 mb-3 text-danger">⚠️ Error</h3>
+        <p class="mb-4"><%= error %></p>
+        <a href="/directory" class="btn btn-pill btn-pill-outline">Try again</a>
+      </div>
+    <% } else if (ngos && ngos.length) { %>
       <div class="directory-results fade-up" data-animate="stagger-cards" data-stagger-target=".directory-card">
-        <% ngos.forEach(item => { %>
+        <% ngos.forEach(org => { %>
           <article class="directory-card glass-panel">
             <div class="d-flex justify-content-between align-items-start mb-3">
-              <h3 class="h5 mb-0"><%= item.name %></h3>
-              <span class="badge-soft"><%= item.cause %></span>
+              <h3 class="h5 mb-0"><%= org.name %></h3>
+              <div class="d-flex gap-2 align-items-center">
+                <span class="badge-soft"><%= org.cause %></span>
+                <% if (org.verified) { %>
+                  <span class="badge-soft" title="Verified Organization">✓</span>
+                <% } %>
+              </div>
             </div>
-            <p class="text-muted small mb-3"><%= item.location %></p>
-            <p class="flex-grow-1 mb-3"><%= item.blurb %></p>
-            <div class="d-flex justify-content-between align-items-center gap-2 mt-auto">
-              <a href="<%= item.website %>" target="_blank" class="btn btn-pill btn-sm btn-outline-secondary">Visit site</a>
-              <% if (item.contact) { %>
-                <span class="text-muted small"><%= item.contact %></span>
+            
+            <div class="mb-2">
+              <p class="text-muted small mb-1">
+                📍 <%= org.location.city %>, <%= org.location.state %>
+              </p>
+              <% if (org.yearFounded) { %>
+                <p class="text-muted small mb-0">Founded: <%= org.yearFounded %></p>
+              <% } %>
+            </div>
+
+            <p class="flex-grow-1 mb-3"><%= org.mission.substring(0, 200) %><%= org.mission.length > 200 ? '...' : '' %></p>
+
+            <div class="d-flex flex-column gap-2">
+              <div class="d-flex justify-content-between align-items-center gap-2">
+                <% if (org.website) { %>
+                  <a href="<%= org.website %>" target="_blank" rel="noopener noreferrer" class="btn btn-pill btn-sm btn-outline-secondary">Visit Website</a>
+                <% } else { %>
+                  <span class="text-muted small">No website</span>
+                <% } %>
+              </div>
+
+              <% if (org.email || org.phone) { %>
+                <div class="text-muted small d-flex flex-wrap gap-3">
+                  <% if (org.email) { %>
+                    <span>✉️ <%= org.email %></span>
+                  <% } %>
+                  <% if (org.phone) { %>
+                    <span>📞 <%= org.phone %></span>
+                  <% } %>
+                </div>
               <% } %>
             </div>
           </article>
@@ -94,9 +135,9 @@
       </div>
     <% } else { %>
       <div class="directory-empty glass-panel text-center p-5 fade-up" data-animate="float-card">
-        <h3 class="h4 mb-3">No matches yet</h3>
-        <p class="mb-4">Try adjusting your filters or search term to discover more organizations.</p>
-        <a href="/ngos" class="btn btn-pill btn-pill-outline">Reset filters</a>
+        <h3 class="h4 mb-3">No organizations found</h3>
+        <p class="mb-4">Try adjusting your filters or search term to discover more Mexican NGOs.</p>
+        <a href="/directory" class="btn btn-pill btn-pill-outline">Reset filters</a>
       </div>
     <% } %>
   </div>
@@ -108,51 +149,6 @@
       <p class="eyebrow text-uppercase mb-2">global projects</p>
       <h2 data-animate="split-lines">Verified Projects from GlobalGiving</h2>
       <p class="mb-0">Discover real-time projects making impact around the world. All projects are verified by GlobalGiving.</p>
-    </div>
-
-    <div class="directory-filter glass-panel fade-up mt-4" data-animate="float-card">
-      <div class="directory-form">
-        <div class="directory-form-row">
-          <label class="visually-hidden" for="directory-search-gg">Search projects</label>
-          <input
-            id="directory-search-gg"
-            class="form-control directory-input"
-            type="text"
-            placeholder="Search by name, cause, or location..."
-            aria-label="Search GlobalGiving projects"
-          />
-
-          <label class="visually-hidden" for="directory-country-gg">Filter by country</label>
-          <select class="form-select directory-input" id="directory-country-gg" aria-label="Filter by country">
-            <option value="">All Countries</option>
-            <option value="Mexico" selected>Mexico</option>
-            <option value="United States">United States</option>
-            <option value="Kenya">Kenya</option>
-            <option value="India">India</option>
-            <option value="Guatemala">Guatemala</option>
-            <option value="Philippines">Philippines</option>
-            <option value="Uganda">Uganda</option>
-            <option value="Nepal">Nepal</option>
-          </select>
-
-          <label class="visually-hidden" for="directory-theme-gg">Filter by theme</label>
-          <select class="form-select directory-input" id="directory-theme-gg" aria-label="Filter by theme">
-            <option value="">All Themes</option>
-            <option value="education">Education</option>
-            <option value="health">Health</option>
-            <option value="environment">Environment</option>
-            <option value="economic development">Economic Development</option>
-            <option value="children and youth">Children and Youth</option>
-            <option value="human rights">Human Rights</option>
-            <option value="disaster recovery">Disaster Recovery</option>
-          </select>
-        </div>
-
-        <div class="directory-form-helper">
-          <span class="text-muted small" id="gg-results-count">Loading...</span>
-          <div id="gg-active-filters" class="d-flex gap-2 flex-wrap"></div>
-        </div>
-      </div>
     </div>
 
     <div class="gg-projects-grid fade-up mt-4" id="gg-directory-results" data-animate="stagger-cards">
@@ -177,44 +173,6 @@
         <div class="skeleton-text mb-3"></div>
         <div class="skeleton-progress mb-3"></div>
         <div class="skeleton-footer"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="page-section directory-showcase snap-target" data-animate="section">
-  <div class="content-max">
-    <div class="section-heading text-center fade-up" data-animate="stagger">
-      <p class="eyebrow text-uppercase mb-2">featured initiatives</p>
-      <h2 data-animate="split-lines">Explore SDG-focused projects at a glance</h2>
-      <p class="mb-0">Swipe or scroll horizontally to preview highlighted organizations before diving deeper.</p>
-    </div>
-    <div class="horizontal-showcase" data-animate="horizontal-gallery">
-      <div class="showcase-track">
-        <div class="showcase-card glass-panel reveal-mask p-4" data-animate="mask">
-          <span class="badge-soft mb-3 d-inline-block text-uppercase small">SDG 3</span>
-          <h3 class="h5 mb-2">Heal Jalisco Collective</h3>
-          <p class="mb-3 small text-muted">Mobile clinics offering preventative care across rural communities.</p>
-          <a href="/directory?q=Heal+Jalisco" class="btn btn-pill btn-pill-outline btn-sm">View profile</a>
-        </div>
-        <div class="showcase-card glass-panel reveal-mask p-4" data-animate="mask">
-          <span class="badge-soft mb-3 d-inline-block text-uppercase small">SDG 11</span>
-          <h3 class="h5 mb-2">Urban Roots Lab</h3>
-          <p class="mb-3 small text-muted">Designing greener public spaces with resident-led stewardship.</p>
-          <a href="/directory?q=Urban+Roots" class="btn btn-pill btn-pill-outline btn-sm">View profile</a>
-        </div>
-        <div class="showcase-card glass-panel reveal-mask p-4" data-animate="mask">
-          <span class="badge-soft mb-3 d-inline-block text-uppercase small">SDG 5</span>
-          <h3 class="h5 mb-2">Emerging Leaders MX</h3>
-          <p class="mb-3 small text-muted">Leadership training &amp; funding pathways for women-led NGOs.</p>
-          <a href="/directory?q=Emerging+Leaders" class="btn btn-pill btn-pill-outline btn-sm">View profile</a>
-        </div>
-        <div class="showcase-card glass-panel reveal-mask p-4" data-animate="mask">
-          <span class="badge-soft mb-3 d-inline-block text-uppercase small">SDG 13</span>
-          <h3 class="h5 mb-2">Climate Action Fellows</h3>
-          <p class="mb-3 small text-muted">Youth fellows monitoring urban emissions with open data dashboards.</p>
-          <a href="/directory?q=Climate+Action+Fellows" class="btn btn-pill btn-pill-outline btn-sm">View profile</a>
-        </div>
       </div>
     </div>
   </div>
