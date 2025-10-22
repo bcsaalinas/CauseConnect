@@ -11,6 +11,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import helmet from "helmet";
 
+import authRoutes from "./src/routes/authRoutes.js";
 import pageRoutes from "./src/routes/pageRoutes.js";
 import ngoRoutes from "./src/routes/ngoRoutes.js";
 import messageRoutes from "./src/routes/messageRoutes.js";
@@ -35,6 +36,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Rutas
+app.use("/", authRoutes); // Auth routes
 app.use("/", pageRoutes); // "/" y "/sdgs"
 app.use("/directory", ngoRoutes); // "/ngos"
 app.use("/contact", messageRoutes); // "/contact" (GET/POST)

@@ -1,0 +1,23 @@
+<%- include('../layouts/header') %>
+
+<main class="container">
+  <h1>Create an account</h1>
+
+  <% if (error) { %>
+    <p style="color: red; font-weight: bold;"><%= error %></p>
+  <% } %>
+
+  <form action="/signup" method="POST">
+    <div>
+      <label for="username">User:</label>
+      <input type="text" id="username" name="username">
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password">
+    </div>
+    <button type="submit">Register</button>
+  </form>
+</main>
+
+<%- include('../layouts/footer') %>
