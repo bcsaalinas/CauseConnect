@@ -629,7 +629,7 @@ Scroll Storytelling Upgrade
 - YouTube tutorials for understanding timelines
 
 **Personal Reflection:**
-"GSAP ended up being way cooler than I expected! At first it felt overwhelming with all the options, but once I understood timelines and ScrollTrigger, everything clicked. The best part was seeing the cards actually animate on scroll - made the site feel professional. I definitely relied on AI to understand the concepts faster, but I made sure to test everything myself and understand WHY it worked, not just copy-paste. Proud of how the animations turned out, even though it took longer than I thought!"
+"GSAP ended up being way cooler than I expected At first it felt overwhelming with all the options, but once I understood timelines and ScrollTrigger, it started going fine i guess. The best part was seeing the cards actually animate on scroll - made the site feel professional. I definitely relied on AI to understand the concepts faster, but I made sure to test everything myself and understand WHY it worked, not just copy-paste. Proud of how the animations turned out, even though it took longer than I thought, I still think GSAP is a very cool framework and I'm looking to learn more about it and implement more advanced animations in future projects"
 
 **Key Files Modified:**
 

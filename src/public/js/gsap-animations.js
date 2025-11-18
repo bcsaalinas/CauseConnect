@@ -1,14 +1,14 @@
 (() => {
-  if ("scrollRestoration" in history) {
-    history.scrollRestoration = "manual";
-  }
-
-  const docEl = document.documentElement;
-  const appConfig = window.APP_ANIM || {};
+  let docEl = document.documentElement;
   const reduceMedia = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const prefersReduce = reduceMedia.matches || appConfig.enabled === false;
-  const hasGSAP = typeof window.gsap !== "undefined";
-  const animatedNodes = Array.from(document.querySelectorAll("[data-animate]"));
+  let prefersReduce = false;
+  let hasGSAP = false;
+  let animatedNodes = [];
+  let gsap = null;
+  let ScrollTrigger = null;
+  let reduceListenerBound = false;
+  let resizeListenerBound = false;
+  const splitCache = new WeakMap();
 
   const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 
@@ -38,20 +38,6 @@
       node.classList.add("is-visible");
     });
   };
-
-  if (!hasGSAP || prefersReduce) {
-    finalizeElements();
-    return;
-  }
-
-  const gsap = window.gsap;
-  const ScrollTrigger = window.ScrollTrigger;
-
-  if (ScrollTrigger) {
-    gsap.registerPlugin(ScrollTrigger);
-  }
-
-  const splitCache = new WeakMap();
 
   const prepareSplit = (element) => {
     if (!element || splitCache.has(element)) {
@@ -737,46 +723,88 @@
     }
   };
 
-  reduceMedia.addEventListener("change", (event) => {
-    if (event.matches) {
-      finalizeElements();
+  const initializeAnimations = () => {
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
     }
-  });
 
-  docEl.classList.add("animations-ready");
+    docEl = document.documentElement;
+    const appConfig = window.APP_ANIM || {};
+    prefersReduce = reduceMedia.matches || appConfig.enabled === false;
+    hasGSAP = typeof window.gsap !== "undefined";
+    animatedNodes = Array.from(document.querySelectorAll("[data-animate]"));
 
-  if (ScrollTrigger) {
-    let resizeTimeout;
-    window.addEventListener(
-      "resize",
-      () => {
-        if (prefersReduce) {
-          return;
+    if (!hasGSAP || prefersReduce) {
+      finalizeElements();
+      return;
+    }
+
+    gsap = window.gsap;
+    ScrollTrigger = window.ScrollTrigger;
+
+    if (ScrollTrigger) {
+      gsap.registerPlugin(ScrollTrigger);
+    }
+
+    if (!reduceListenerBound) {
+      reduceMedia.addEventListener("change", (event) => {
+        if (event.matches) {
+          finalizeElements();
+        } else {
+          window.initCauseConnectAnimations();
         }
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-          ScrollTrigger.refresh();
-        }, 180);
-      },
-      { passive: true }
-    );
-  }
+      });
+      reduceListenerBound = true;
+    }
 
-  initSplitHeadings();
-  initHero();
-  initHeroChapters();
-  initSections();
-  initStaggers();
-  initFloatCards();
-  initMaskReveals();
-  initMetricsSection();
-  initCounters();
-  initParallax();
-  initSkewEffects();
-  initPinnedTracks();
-  initHorizontalGallery();
-  initMagnet();
-  initTestimonialCarousel();
-  initHeader();
-  initStickyFilter();
+    if (ScrollTrigger && !resizeListenerBound) {
+      let resizeTimeout;
+      window.addEventListener(
+        "resize",
+        () => {
+          if (prefersReduce) {
+            return;
+          }
+          clearTimeout(resizeTimeout);
+          resizeTimeout = setTimeout(() => {
+            ScrollTrigger.refresh();
+          }, 180);
+        },
+        { passive: true }
+      );
+      resizeListenerBound = true;
+    }
+
+    docEl.classList.add("animations-ready");
+
+    initSplitHeadings();
+    initHero();
+    initHeroChapters();
+    initSections();
+    initStaggers();
+    initFloatCards();
+    initMaskReveals();
+    initMetricsSection();
+    initCounters();
+    initParallax();
+    initSkewEffects();
+    initPinnedTracks();
+    initHorizontalGallery();
+    initMagnet();
+    initTestimonialCarousel();
+    initHeader();
+    initStickyFilter();
+  };
+
+  window.initCauseConnectAnimations = () => {
+    window.requestAnimationFrame(() => initializeAnimations());
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => window.initCauseConnectAnimations(), {
+      once: true,
+    });
+  } else {
+    window.initCauseConnectAnimations();
+  }
 })();
