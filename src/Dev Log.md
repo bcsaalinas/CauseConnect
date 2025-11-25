@@ -973,3 +973,30 @@ Scroll Storytelling Upgrade
 - Modified: `server.js` (added new route)
 - Modified: `src/routes/ngoRoutes.js` (switched to API calls)
 - Modified: `src/views/pages/directory.ejs` (better filters and cards)
+
+---
+
+**Dev Log – Plan Review (Codex)**  
+**Date:** 23 Oct 2025  
+**Project / Module:** React/Vite migration & GSAP refactor plan review  
+**Decision:** Approved the proposed migration plan as outlined by the agent.
+
+**Notes / Feedback (plain English):**
+- The directory move to `src/client` with Vite output in `src/public/dist` keeps Express serving static files; just be sure `server.js` points to the new dist while leaving legacy assets reachable until the React build fully replaces them.
+- Splitting `src/public/js/app.jsx` into `main.jsx`, `App.jsx`, and focused components/hooks is the right path; keep feature parity after each split to avoid regressions.
+- GSAP refactor via `@gsap/react` and refs is solid—register plugins once, and always kill timelines on unmount. Reduced-motion guards need to wrap every animation block.
+- ScrollTrigger in components is fine; use markers during dev, then remove. Handle responsive start/end values and pinning carefully to avoid layout jumps.
+- During cutover, keep a temporary bridge so EJS/legacy scripts don’t break while React takes over; swap entry HTML only after the Vite build is wired and tested (`npm run build`, then `node server.js` pointing at `dist`).
+
+---
+
+**Dev Log – Migration Review (Codex)**  
+**Date:** 23 Oct 2025  
+**Project / Module:** Vite-based React migration acceptance  
+**Decision:** Accepted delivered changes.
+
+**Notes / Feedback (plain English):**
+- Confirmed the React source now lives in `src/client` (components, pages, hooks, data, `main.jsx`) with Vite output targeting `src/public/dist`; Express is expected to serve from that dist while legacy assets remain for parity until cleanup.
+- GSAP is now wired through React via the animation hook with cleanup and reduced-motion guards; keep the unmount kills and prefers-reduced-motion checks on every timeline.
+- Navigation and filters should stay parity with the legacy pages; during validation hit Home/Directory/SDG/Contact to confirm SPA routing and that animations respect reduced motion.
+- Build/test flow: use `npm run dev` for HMR and `npm run build` then `npm start` to serve the built assets; once confirmed, we can safely remove `src/public/js/app.jsx` and `src/public/js/gsap-animations.js`.

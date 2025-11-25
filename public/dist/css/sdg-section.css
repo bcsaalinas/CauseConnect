@@ -1,0 +1,59 @@
+.sdg-horizontal {
+  position: relative;
+  padding-block: 6rem;
+}
+.sdg-horizontal .horizontal-showcase {
+  margin-top: clamp(1.5rem, 3.5vw, 2.5rem);
+  overflow: visible;
+  overflow-x: auto;
+  overflow-y: visible;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 3rem;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 2rem;
+  padding-right: 2rem;
+  will-change: transform, opacity;
+}
+.sdg-horizontal .showcase-track {
+  gap: clamp(1.5rem, 3vw, 2rem);
+  display: contents;
+}
+.sdg-horizontal .showcase-card {
+  scroll-snap-align: start;
+  will-change: transform, opacity;
+}
+.sdg-horizontal .section-heading p {
+  line-height: 1.7;
+}
+.sdg-horizontal .content-max {
+  width: min(90rem, 100%);
+  margin-inline: auto;
+}
+@media (max-width: 1199.98px) {
+  .sdg-horizontal .horizontal-showcase {
+    gap: 2rem;
+    scroll-padding: 1.75rem;
+    padding-right: 1.75rem;
+  }
+}
+@media (max-width: 767.98px) {
+  .sdg-horizontal .horizontal-showcase {
+    gap: 1.5rem;
+  }
+}
+@media (max-width: 575.98px) {
+  .sdg-horizontal .horizontal-showcase {
+    flex-direction: column;
+    overflow-x: visible;
+    scroll-snap-type: none;
+    padding-inline: 1.5rem;
+    padding-right: 1.5rem;
+    gap: 1.5rem;
+  }
+  .sdg-horizontal .showcase-card {
+    scroll-snap-align: unset;
+  }
+}
+@media (max-width: 767.98px) {
