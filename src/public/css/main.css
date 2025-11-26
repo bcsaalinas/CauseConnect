@@ -540,6 +540,22 @@ button {
   background: var(--cc-accent);
   color: #fff;
 }
+
+/* Custom button style for cc-btn-primary */
+.cc-btn-primary {
+  background: var(--brand-primary);
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: background 0.2s;
+}
+.cc-btn-primary:hover, .cc-btn-primary:focus {
+  background: var(--brand-primary-strong);
+  color: #fff;
+}
+
 /* Unified Card Component */
 .glass-panel {
   background: rgba(255, 255, 255, 0.9);

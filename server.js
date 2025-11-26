@@ -10,11 +10,13 @@ import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import helmet from "helmet";
+import cors from "cors";
 
 import messageRoutes from "./src/routes/messageRoutes.js";
 import globalGivingRoutes from "./src/routes/api/globalgiving.js";
 import atlasRoutes from "./src/routes/api/atlas.js";
 import mexicanNGOsRoutes from "./src/routes/api/mexican-ngos.js";
+import authRoutes from "./routes/authRoutes.js"; // Import authRoutes
 const app = express();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const publicDir = path.join(__dirname, "src", "public");
@@ -22,6 +24,9 @@ const indexHtml = path.join(publicDir, "index.html");
 
 // Seguridad básica (desactivamos CSP para permitir CDNs/iframes sin configurar listas)
 app.use(helmet({ contentSecurityPolicy: false }));
+
+// Enable CORS
+app.use(cors());
 
 // Archivos estáticos
 app.use(express.static(publicDir));
@@ -37,6 +42,7 @@ app.use("/api/contact", messageRoutes);
 app.use("/api/gg", globalGivingRoutes); // GlobalGiving API proxy
 app.use("/api/atlas", atlasRoutes); // GlobalGiving Atlas API proxy
 app.use("/api/mexican-ngos", mexicanNGOsRoutes); // Mexican NGOs API
+app.use("/api/auth", authRoutes); // Rutas de autenticación
 
 // Fallback para SPA
 app.get("*", (req, res, next) => {

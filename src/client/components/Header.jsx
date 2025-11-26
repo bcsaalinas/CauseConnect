@@ -1,8 +1,21 @@
-import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
+import axios from 'axios';
 
 function Header() {
   const navClass = ({ isActive }) => `nav-link${isActive ? " active" : ""}`;
+  const location = useLocation();
+  const [userName, setUserName] = useState(null);
+
+  useEffect(() => {
+    // Check for user info in URL (profile page)
+    const params = new URLSearchParams(location.search);
+    const name = params.get('name');
+    if (name) {
+      setUserName(name);
+    }
+  }, [location]);
+
   return (
     <header>
       <div className="cc-header-shell">
@@ -55,12 +68,18 @@ function Header() {
                 <input className="flex-grow-1" type="search" placeholder="Search" aria-labelledby="site-search-label" />
               </form>
 
-              <button type="button" className="btn btn-pill btn-pill-outline ms-md-3 my-md-auto my-2" id="login">
-                Login
-              </button>
-              <button type="button" className="btn btn-pill btn-pill-primary ms-md-2 my-md-auto my-2" id="sign-up">
-                Sign-up
-              </button>
+              <div className="d-flex ms-auto">
+                {userName ? (
+                  <span className="navbar-text fw-bold px-3" style={{ color: '#fff', borderRadius: '999px', background: 'var(--cc-accent-dark)' }}>
+                    {userName}
+                  </span>
+                ) : (
+                  <>
+                    <NavLink to="/login" className="btn btn-outline-light me-2">Log In</NavLink>
+                    <NavLink to="/signup" className="btn btn-primary">Sign Up</NavLink>
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </nav>

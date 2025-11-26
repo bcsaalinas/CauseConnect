@@ -11,6 +11,11 @@ import DirectoryPage from './pages/DirectoryPage';
 import SDGPage from './pages/SDGPage';
 import ContactPage from './pages/ContactPage';
 import NotFoundPage from './pages/NotFoundPage';
+import DashboardPage from './pages/DashboardPage';
+import WelcomePage from './pages/WelcomePage';
+import LoginPage from './pages/LoginPage.jsx';
+import SignUpPage from './pages/SignUpPage.jsx';
+import ProfilePage from './pages/ProfilePage.jsx';
 
 function MainRoutes() {
   const location = useLocation();
@@ -22,6 +27,11 @@ function MainRoutes() {
         <Route path="/directory" element={<DirectoryPage />} />
         <Route path="/sdgs" element={<SDGPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/welcome" element={<WelcomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </main>

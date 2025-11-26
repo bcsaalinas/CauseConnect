@@ -21,7 +21,11 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': 'http://localhost:3000', // Proxy API requests to Express server
+      '/api': {
+        target: 'http://localhost:3000', // Backend server
+        changeOrigin: true,
+        secure: false,
+      },
     },
   },
 });

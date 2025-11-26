@@ -396,6 +396,8 @@ export function useGSAPAnimation() {
       gsap.set(header, { yPercent: 0 });
       let isHidden = false;
 
+      const excludedPaths = ['/directory', '/sdgs', '/contact'];
+
       const revealHeader = () => {
         if (!isHidden) return;
         isHidden = false;
@@ -404,7 +406,7 @@ export function useGSAPAnimation() {
       };
 
       const concealHeader = () => {
-        if (isHidden) return;
+        if (isHidden || excludedPaths.includes(window.location.pathname)) return;
         isHidden = true;
         gsap.to(header, { yPercent: -100, duration: 0.45, ease: "power3.in", overwrite: true });
         header.classList.add("nav-hidden");
