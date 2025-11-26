@@ -72,10 +72,10 @@ function GlobalGivingSection({ title, description }) {
   }, []);
 
   return (
-    <section className="page-section globalgiving-section" data-animate="section">
+    <section className="page-section globalgiving-section">
       <div className="content-max">
         <SectionHeading eyebrow="global impact" title={title} description={description} />
-        <div className="gg-featured-scroll fade-up" data-animate="stagger-cards">
+        <div className="gg-featured-scroll">
           {state.loading &&
             Array.from({ length: 3 }).map((_, index) => (
               <div className="directory-card glass-panel skeleton-loader" key={index}>
@@ -94,7 +94,7 @@ function GlobalGivingSection({ title, description }) {
           {!state.loading && !state.error &&
             projects.slice(0, 6).map((project) => <GlobalGivingCard key={project.id} project={project} />)}
         </div>
-        <div className="text-center mt-4 fade-up">
+        <div className="text-center mt-4">
           <Link to="/directory#globalgiving" className="btn btn-pill btn-pill-outline">
             Explore all projects
           </Link>
@@ -103,5 +103,6 @@ function GlobalGivingSection({ title, description }) {
     </section>
   );
 }
+
 
 export default GlobalGivingSection;
