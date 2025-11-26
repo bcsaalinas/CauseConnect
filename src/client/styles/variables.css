@@ -1,0 +1,83 @@
+:root {
+  /* --- Color Palette: Deep Space & Neon --- */
+  /* Backgrounds */
+  --cc-bg: #030712; /* Deepest Navy/Black */
+  --cc-bg-subtle: #0f172a; /* Dark Slate */
+  --cc-bg-card: rgba(15, 23, 42, 0.6);
+  --cc-bg-glass: rgba(3, 7, 18, 0.7);
+  
+  /* Accents */
+  --cc-accent: #00f2ea; /* Electric Cyan */
+  --cc-accent-glow: rgba(0, 242, 234, 0.5);
+  --cc-primary: #7d00f2; /* Vivid Purple */
+  --cc-primary-light: #a855f7;
+  --cc-success: #00ff94; /* Neon Green */
+  --cc-warning: #ffb800;
+  --cc-danger: #ff0055;
+
+  /* Text */
+  --cc-text: #f8fafc;
+  --cc-text-muted: #94a3b8;
+  --cc-text-dark: #020617; /* For buttons/badges on neon backgrounds */
+
+  /* Gradients */
+  --gradient-main: linear-gradient(135deg, #030712 0%, #111827 100%);
+  --gradient-accent: linear-gradient(135deg, #00f2ea 0%, #7d00f2 100%);
+  --gradient-glow: radial-gradient(circle at center, rgba(125, 0, 242, 0.15) 0%, transparent 70%);
+  --gradient-glass: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+
+  /* --- Typography --- */
+  --font-sans: "Outfit", system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+
+  /* Fluid Type Scale (Larger & Bolder) */
+  --text-xs: clamp(0.8rem, 0.75rem + 0.25vw, 0.9rem);
+  --text-sm: clamp(0.9rem, 0.85rem + 0.3vw, 1.05rem);
+  --text-base: clamp(1.1rem, 1rem + 0.5vw, 1.25rem);
+  --text-lg: clamp(1.35rem, 1.2rem + 0.75vw, 1.75rem);
+  --text-xl: clamp(1.75rem, 1.5rem + 1vw, 2.25rem);
+  --text-2xl: clamp(2.25rem, 2rem + 1.5vw, 3rem);
+  --text-3xl: clamp(3rem, 2.5rem + 2vw, 4.5rem);
+  --text-4xl: clamp(4rem, 3rem + 3vw, 6rem);
+  --text-display: clamp(5rem, 4rem + 5vw, 9rem);
+
+  /* --- Spacing (Expansive) --- */
+  --space-xs: 0.75rem;
+  --space-sm: 1.5rem;
+  --space-md: 2.5rem;
+  --space-lg: 4rem;
+  --space-xl: 8rem;
+  --space-2xl: 12rem;
+  
+  --container-max: 1400px;
+  --container-padding: clamp(1.5rem, 5vw, 4rem);
+
+  /* --- Borders & Radius --- */
+  --radius-sm: 4px;
+  --radius-md: 12px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+
+  --border-subtle: 1px solid rgba(255, 255, 255, 0.08);
+  --border-accent: 1px solid rgba(0, 242, 234, 0.3);
+
+  /* --- Shadows & Glows --- */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+  --glow-accent: 0 0 20px rgba(0, 242, 234, 0.4);
+  --glow-primary: 0 0 30px rgba(125, 0, 242, 0.3);
+  --glow-text: 0 0 10px rgba(255, 255, 255, 0.3);
+
+  /* --- Animation --- */
+  --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-expo: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-normal: 0ms;
+    --duration-slow: 0ms;
+  }
+}
