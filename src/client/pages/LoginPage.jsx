@@ -1,56 +1,93 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleLogin = async () => {
-    console.log('Login button clicked');
+  const handleLogin = async (e) => {
+    e.preventDefault(); // Prevent form submission refresh
+    setIsLoading(true);
+    setMessage('');
+    
     try {
       const response = await axios.post('http://localhost:3000/api/auth/login', { email, password });
-      setMessage(response.data.message);
-      if (response.status === 200) {
-        console.log('Login successful, redirecting...');
-        window.location.href = '/dashboard';
+      if (response.status === 200 && response.data.user) {
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        localStorage.setItem('token', response.data.token); // Store JWT
+        navigate('/dashboard');
+      } else {
+        setMessage(response.data.message || 'Login failed');
       }
     } catch (error) {
-      const errorMsg = error.response?.data?.message || error.message || 'Login failed';
-      console.error('Login failed:', errorMsg);
-      setMessage(errorMsg);
+      setMessage(error.response?.data?.message || 'Login failed');
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="container mt-3" style={{ maxWidth: '400px' }}>
-      <h1 className="text-center mb-3">Log In</h1>
-      <form className="mt-2">
-        <div className="mb-2">
-          <label htmlFor="email" className="form-label">Email address</label>
-          <input
-            type="email"
-            className="form-control form-control-sm"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+    <div className="container d-flex align-items-center justify-content-center" style={{ minHeight: '80vh' }}>
+      <div className="glass-card p-5" style={{ width: '100%', maxWidth: '450px' }}>
+        <div className="text-center mb-4">
+          <h1 className="mb-2 text-gradient">Welcome Back</h1>
+          <p className="text-muted">Sign in to continue your journey</p>
         </div>
-        <div className="mb-2">
-          <label htmlFor="password" className="form-label">Password</label>
-          <input
-            type="password"
-            className="form-control form-control-sm"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+
+        <form onSubmit={handleLogin}>
+          <div className="mb-4">
+            <label htmlFor="email" className="form-label text-uppercase" style={{ fontSize: '0.75rem', letterSpacing: '0.1em', fontWeight: 600 }}>Email Address</label>
+            <input
+              type="email"
+              className="form-control"
+              id="email"
+              placeholder="name@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--cc-text)' }}
+            />
+          </div>
+          
+          <div className="mb-4">
+            <label htmlFor="password" className="form-label text-uppercase" style={{ fontSize: '0.75rem', letterSpacing: '0.1em', fontWeight: 600 }}>Password</label>
+            <input
+              type="password"
+              className="form-control"
+              id="password"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--cc-text)' }}
+            />
+          </div>
+
+          <button 
+            type="submit" 
+            className="btn btn-primary-glow w-100 mb-3"
+            disabled={isLoading}
+          >
+            {isLoading ? 'Signing In...' : 'Log In'}
+          </button>
+        </form>
+
+        {message && (
+          <div className="alert alert-danger mt-3 text-center" style={{ background: 'rgba(220, 53, 69, 0.1)', border: '1px solid rgba(220, 53, 69, 0.2)', color: '#ff6b6b' }}>
+            {message}
+          </div>
+        )}
+        
+        <div className="text-center mt-4">
+          <p className="small text-muted">
+            Don't have an account? <a href="/signup" className="text-accent text-decoration-none fw-bold">Sign Up</a>
+          </p>
         </div>
-        <button type="button" id="login" className="btn w-100" style={{ borderRadius: '999px', padding: '0.5rem 1rem', fontWeight: 600, boxShadow: '0 6px 16px rgba(6, 113, 79, 0.18)' }} onClick={handleLogin}>Log In</button>
-      </form>
-      {message && <p className="mt-2 text-center text-danger">{message}</p>}
+      </div>
     </div>
   );
 }

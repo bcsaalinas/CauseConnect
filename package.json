@@ -9,14 +9,18 @@
     "dev:server": "nodemon server.js",
     "dev:client": "vite",
     "build": "vite build",
-    "watch": "vite build --watch"
+    "watch": "vite build --watch",
+    "db:clear": "node src/scripts/clearDb.js"
   },
   "dependencies": {
     "axios": "^1.13.2",
+    "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.2",
     "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^9.0.0",
     "node-cache": "^5.1.2"
   },
   "devDependencies": {

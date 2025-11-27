@@ -17,7 +17,16 @@ import globalGivingRoutes from "./src/routes/api/globalgiving.js";
 import atlasRoutes from "./src/routes/api/atlas.js";
 import mexicanNGOsRoutes from "./src/routes/api/mexican-ngos.js";
 import authRoutes from "./routes/authRoutes.js"; // Import authRoutes
+import mongoose from 'mongoose';
+
 const app = express();
+
+// MongoDB Connection
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/causeconnect';
+mongoose.connect(MONGODB_URI)
+  .then(() => console.log('✓ Connected to MongoDB'))
+  .catch(err => console.error('✕ MongoDB connection error:', err));
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const publicDir = path.join(__dirname, "src", "public");
 const indexHtml = path.join(publicDir, "index.html");
@@ -43,6 +52,12 @@ app.use("/api/gg", globalGivingRoutes); // GlobalGiving API proxy
 app.use("/api/atlas", atlasRoutes); // GlobalGiving Atlas API proxy
 app.use("/api/mexican-ngos", mexicanNGOsRoutes); // Mexican NGOs API
 app.use("/api/auth", authRoutes); // Rutas de autenticación
+import activityRoutes from "./src/routes/activityRoutes.js";
+app.use("/api/activities", activityRoutes);
+import userRoutes from "./src/routes/userRoutes.js";
+app.use("/api/user", userRoutes);
+import dashboardRoutes from "./src/routes/dashboardRoutes.js";
+app.use("/api/dashboard", dashboardRoutes);
 
 // Fallback para SPA
 app.get("*", (req, res, next) => {

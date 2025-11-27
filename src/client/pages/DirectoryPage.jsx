@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useLocation, Link } from 'react-router-dom';
+import axios from 'axios';
 import useDocumentTitle from '../hooks/useDocumentTitle';
 import useDebouncedValue from '../hooks/useDebouncedValue';
 import SectionHeading from '../components/SectionHeading';
@@ -10,6 +11,35 @@ const formatNumber = (value) => {
 
 function GlobalGivingCard({ project }) {
   const progress = Math.min(project.progress || 0, 100);
+  const [isBookmarked, setIsBookmarked] = useState(false);
+
+  const handleBookmark = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('Please log in to bookmark projects.');
+      return;
+    }
+
+    try {
+      await axios.post('http://localhost:3000/api/user/bookmarks', {
+        projectId: project.id,
+        title: project.title,
+        imageUrl: project.imageUrl
+      }, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setIsBookmarked(true);
+      alert('Project bookmarked!');
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        alert('Already bookmarked!');
+      } else {
+        console.error('Error bookmarking:', error);
+        alert('Failed to bookmark.');
+      }
+    }
+  };
+
   return (
     <article className="directory-card glass-panel">
       <div className="d-flex justify-content-between align-items-start mb-3">
@@ -39,7 +69,12 @@ function GlobalGivingCard({ project }) {
         <a href={project.url} target="_blank" rel="noopener noreferrer" className="btn btn-pill btn-sm btn-outline-secondary">
           View project
         </a>
-        <span className="text-muted small">{project.numberOfDonations} donors</span>
+        <button 
+          className={`btn btn-pill btn-sm ${isBookmarked ? 'btn-primary-glow' : 'btn-outline-primary'}`}
+          onClick={handleBookmark}
+        >
+          {isBookmarked ? 'Saved' : 'Bookmark'}
+        </button>
       </div>
     </article>
   );
@@ -176,6 +211,146 @@ function GlobalGivingExplorer() {
   );
 }
 
+function CauseConnectCard({ activity }) {
+  const [signedUp, setSignedUp] = useState(false);
+
+  const handleSignUp = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('Please log in to sign up.');
+      return;
+    }
+    try {
+      await axios.post(`http://localhost:3000/api/activities/${activity._id}/join`, {}, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setSignedUp(true);
+      alert('Successfully signed up!');
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        alert(error.response.data.message);
+      } else {
+        console.error('Error signing up:', error);
+        alert('Failed to sign up.');
+      }
+    }
+  };
+
+  return (
+    <article className="directory-card glass-panel">
+      <div className="d-flex justify-content-between align-items-start mb-3">
+        <h3 className="h5 mb-0">{activity.title}</h3>
+        <span className="badge-soft">CauseConnect</span>
+      </div>
+      <p className="text-muted small mb-2">
+        📍 {activity.location} • 📅 {new Date(activity.date).toLocaleDateString()}
+      </p>
+      <p className="flex-grow-1 mb-3">{activity.description}</p>
+      <div className="mb-3">
+        <div className="small text-muted">Duration: {activity.duration} Hours</div>
+        <div className="small text-muted mt-1">Organizer: {activity.organizer?.name || 'Unknown'}</div>
+      </div>
+      <div className="d-flex justify-content-between align-items-center gap-2 mt-auto">
+        <button 
+          className={`btn btn-pill btn-sm ${signedUp ? 'btn-success' : 'btn-primary-glow'}`}
+          onClick={handleSignUp}
+          disabled={signedUp}
+        >
+          {signedUp ? 'Signed Up' : 'Sign Up'}
+        </button>
+      </div>
+    </article>
+  );
+
+}
+
+function MexicanNgoCard({ org }) {
+  const [isBookmarked, setIsBookmarked] = useState(false);
+
+  // juan: handling bookmarks for local ngos here
+  // had to use a placeholder img cause the api doesnt give us one yet
+  const handleBookmark = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('Please log in to bookmark organizations.');
+      return;
+    }
+
+    try {
+      // Use a placeholder image since Mexican NGOs don't have one in the API
+      // TODO: (alberto) maybe we can scrape logos later?
+      const placeholderImage = "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80";
+
+      await axios.post('http://localhost:3000/api/user/bookmarks', {
+        projectId: org.id,
+        title: org.name,
+        imageUrl: placeholderImage
+      }, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setIsBookmarked(true);
+      alert('Organization bookmarked!');
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        alert('Already bookmarked!');
+      } else {
+        console.error('Error bookmarking:', error);
+        alert('Failed to bookmark.');
+      }
+    }
+  };
+
+  return (
+    <article className="directory-card glass-panel">
+      <div className="d-flex justify-content-between align-items-start mb-3">
+        <h3 className="h5 mb-0">{org.name}</h3>
+        <div className="d-flex gap-2 align-items-center">
+          <span className="badge-soft">{org.cause}</span>
+          {org.verified && (
+            <span className="badge-soft" title="Verified Organization">
+              ✓
+            </span>
+          )}
+        </div>
+      </div>
+      <div className="mb-2">
+        <p className="text-muted small mb-1">
+          📍 {org.location?.city}, {org.location?.state}
+        </p>
+        {org.yearFounded && (
+          <p className="text-muted small mb-0">Founded: {org.yearFounded}</p>
+        )}
+      </div>
+      <p className="flex-grow-1 mb-3">
+        {org.mission.length > 200 ? `${org.mission.substring(0, 200)}...` : org.mission}
+      </p>
+      <div className="d-flex flex-column gap-2">
+        <div className="d-flex justify-content-between align-items-center gap-2">
+          {org.website ? (
+            <a href={org.website} target="_blank" rel="noopener noreferrer" className="btn btn-pill btn-sm btn-outline-secondary">
+              Visit Website
+            </a>
+          ) : (
+            <span className="text-muted small">No website</span>
+          )}
+          <button 
+            className={`btn btn-pill btn-sm ${isBookmarked ? 'btn-primary-glow' : 'btn-outline-primary'}`}
+            onClick={handleBookmark}
+          >
+            {isBookmarked ? 'Saved' : 'Bookmark'}
+          </button>
+        </div>
+        {(org.email || org.phone) && (
+          <div className="text-muted small d-flex flex-wrap gap-3">
+            {org.email && <span>✉️ {org.email}</span>}
+            {org.phone && <span>📞 {org.phone}</span>}
+          </div>
+        )}
+      </div>
+    </article>
+  );
+}
+
 function DirectoryPage() {
   useDocumentTitle("Directory");
   const location = useLocation();
@@ -191,6 +366,20 @@ function DirectoryPage() {
   const [formState, setFormState] = useState(initialFilters);
   const [filters, setFilters] = useState(initialFilters);
   const [state, setState] = useState({ loading: true, error: "", ngos: [], total: 0, options: { causes: [], cities: [] } });
+  
+  const [ccActivities, setCcActivities] = useState([]);
+
+  useEffect(() => {
+    const fetchActivities = async () => {
+      try {
+        const res = await axios.get('http://localhost:3000/api/activities');
+        setCcActivities(res.data);
+      } catch (err) {
+        console.error('Error fetching activities:', err);
+      }
+    };
+    fetchActivities();
+  }, []);
 
   useEffect(() => {
     setFormState(initialFilters);
@@ -346,6 +535,28 @@ function DirectoryPage() {
         </div>
       </section>
 
+      {/* CauseConnect Opportunities Section */}
+      <section className="page-section snap-target" data-animate="section">
+        <div className="content-max">
+          <SectionHeading
+            eyebrow="Get Involved"
+            title="CauseConnect Opportunities"
+            description="Direct volunteering opportunities hosted by our partner organizations."
+          />
+          <div className="gg-projects-grid fade-up mt-4" data-animate="stagger-cards">
+            {ccActivities.length > 0 ? (
+              ccActivities.map(activity => (
+                <CauseConnectCard key={activity._id} activity={activity} />
+              ))
+            ) : (
+              <div className="col-12 text-center text-muted p-5 glass-panel">
+                <p>No active opportunities at the moment.</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
       <section className="page-section directory-results-section snap-target" data-animate="section">
         <div className="content-max">
           {state.loading && (
@@ -385,47 +596,7 @@ function DirectoryPage() {
           {!state.loading && !state.error && state.ngos.length > 0 && (
             <div className="directory-results fade-up" data-animate="stagger-cards" data-stagger-target=".directory-card">
               {state.ngos.map((org) => (
-                <article className="directory-card glass-panel" key={org.id}>
-                  <div className="d-flex justify-content-between align-items-start mb-3">
-                    <h3 className="h5 mb-0">{org.name}</h3>
-                    <div className="d-flex gap-2 align-items-center">
-                      <span className="badge-soft">{org.cause}</span>
-                      {org.verified && (
-                        <span className="badge-soft" title="Verified Organization">
-                          ✓
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                  <div className="mb-2">
-                    <p className="text-muted small mb-1">
-                      📍 {org.location?.city}, {org.location?.state}
-                    </p>
-                    {org.yearFounded && (
-                      <p className="text-muted small mb-0">Founded: {org.yearFounded}</p>
-                    )}
-                  </div>
-                  <p className="flex-grow-1 mb-3">
-                    {org.mission.length > 200 ? `${org.mission.substring(0, 200)}...` : org.mission}
-                  </p>
-                  <div className="d-flex flex-column gap-2">
-                    <div className="d-flex justify-content-between align-items-center gap-2">
-                      {org.website ? (
-                        <a href={org.website} target="_blank" rel="noopener noreferrer" className="btn btn-pill btn-sm btn-outline-secondary">
-                          Visit Website
-                        </a>
-                      ) : (
-                        <span className="text-muted small">No website</span>
-                      )}
-                    </div>
-                    {(org.email || org.phone) && (
-                      <div className="text-muted small d-flex flex-wrap gap-3">
-                        {org.email && <span>✉️ {org.email}</span>}
-                        {org.phone && <span>📞 {org.phone}</span>}
-                      </div>
-                    )}
-                  </div>
-                </article>
+                <MexicanNgoCard key={org.id} org={org} />
               ))}
             </div>
           )}

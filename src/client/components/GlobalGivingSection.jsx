@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import SectionHeading from './SectionHeading';
 
 const formatNumber = (value) => {
@@ -8,6 +9,35 @@ const formatNumber = (value) => {
 
 function GlobalGivingCard({ project }) {
   const progress = Math.min(project.progress || 0, 100);
+  const [isBookmarked, setIsBookmarked] = useState(false);
+
+  const handleBookmark = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('Please log in to bookmark projects.');
+      return;
+    }
+
+    try {
+      await axios.post('http://localhost:3000/api/user/bookmarks', {
+        projectId: project.id,
+        title: project.title,
+        imageUrl: project.imageUrl
+      }, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setIsBookmarked(true);
+      alert('Project bookmarked!');
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        alert('Already bookmarked!');
+      } else {
+        console.error('Error bookmarking:', error);
+        alert('Failed to bookmark.');
+      }
+    }
+  };
+
   return (
     <article className="directory-card glass-panel">
       <div className="d-flex justify-content-between align-items-start mb-3">
@@ -37,7 +67,12 @@ function GlobalGivingCard({ project }) {
         <a href={project.url} target="_blank" rel="noopener noreferrer" className="btn btn-pill btn-sm btn-outline-secondary">
           View project
         </a>
-        <span className="text-muted small">{project.numberOfDonations} donors</span>
+        <button 
+          className={`btn btn-pill btn-sm ${isBookmarked ? 'btn-primary-glow' : 'btn-outline-primary'}`}
+          onClick={handleBookmark}
+        >
+          {isBookmarked ? 'Saved' : 'Bookmark'}
+        </button>
       </div>
     </article>
   );

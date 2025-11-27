@@ -1,20 +1,42 @@
-import React, { useEffect, useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
-import axios from 'axios';
+import React, { useEffect, useState, useRef } from 'react';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 
 function Header() {
   const navClass = ({ isActive }) => `nav-link${isActive ? " active" : ""}`;
   const location = useLocation();
-  const [userName, setUserName] = useState(null);
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
-    // Check for user info in URL (profile page)
-    const params = new URLSearchParams(location.search);
-    const name = params.get('name');
-    if (name) {
-      setUserName(name);
+    // Check localStorage for user
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    } else {
+      setUser(null);
     }
   }, [location]);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    setUser(null);
+    setDropdownOpen(false);
+    navigate('/');
+  };
 
   return (
     <header>
@@ -68,15 +90,67 @@ function Header() {
                 <input className="flex-grow-1" type="search" placeholder="Search" aria-labelledby="site-search-label" />
               </form>
 
-              <div className="d-flex ms-auto">
-                {userName ? (
-                  <span className="navbar-text fw-bold px-3" style={{ color: '#fff', borderRadius: '999px', background: 'var(--cc-accent-dark)' }}>
-                    {userName}
-                  </span>
+              <div className="d-flex ms-auto align-items-center">
+                {user ? (
+                  <div className="position-relative" ref={dropdownRef}>
+                    <button 
+                      className="btn btn-link text-decoration-none d-flex align-items-center gap-2" 
+                      type="button" 
+                      onClick={() => setDropdownOpen(!dropdownOpen)}
+                      style={{ color: 'var(--cc-text)', cursor: 'pointer' }}
+                    >
+                      <div 
+                        className="rounded-circle d-flex align-items-center justify-content-center fw-bold"
+                        style={{ width: '32px', height: '32px', background: 'var(--gradient-accent)', color: '#fff', fontSize: '14px' }}
+                      >
+                        {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                      </div>
+                      <span className="d-none d-lg-inline fw-medium">{user.name}</span>
+                      <svg width="12" height="8" viewBox="0 0 12 8" fill="currentColor" style={{ transition: 'transform 0.2s', transform: dropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                        <path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </button>
+                    
+                    {dropdownOpen && (
+                      <div 
+                        className="glass-card border-0 shadow-lg position-absolute end-0 mt-2"
+                        style={{ 
+                          minWidth: '200px',
+                          zIndex: 1000,
+                          animation: 'fadeIn 0.2s ease'
+                        }}
+                      >
+                        <NavLink 
+                          className="dropdown-item px-4 py-2 d-block text-decoration-none" 
+                          to="/dashboard"
+                          onClick={() => setDropdownOpen(false)}
+                          style={{ color: 'var(--cc-text)' }}
+                        >
+                          Dashboard
+                        </NavLink>
+                        <NavLink 
+                          className="dropdown-item px-4 py-2 d-block text-decoration-none" 
+                          to="/profile"
+                          onClick={() => setDropdownOpen(false)}
+                          style={{ color: 'var(--cc-text)' }}
+                        >
+                          Profile Settings
+                        </NavLink>
+                        <hr className="my-1" style={{ borderColor: 'rgba(255,255,255,0.1)' }} />
+                        <button 
+                          className="dropdown-item px-4 py-2 text-danger w-100 text-start bg-transparent border-0" 
+                          onClick={handleLogout}
+                          style={{ cursor: 'pointer' }}
+                        >
+                          Log Out
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 ) : (
                   <>
-                    <NavLink to="/login" className="btn btn-outline-light me-2">Log In</NavLink>
-                    <NavLink to="/signup" className="btn btn-primary">Sign Up</NavLink>
+                    <NavLink to="/login" className="btn btn-outline-light me-2" style={{ borderColor: 'rgba(255,255,255,0.2)', color: 'var(--cc-text)' }}>Log In</NavLink>
+                    <NavLink to="/signup" className="btn btn-primary-glow">Sign Up</NavLink>
                   </>
                 )}
               </div>

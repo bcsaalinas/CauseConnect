@@ -6,6 +6,7 @@ function SignUpPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('volunteer'); // 'volunteer' or 'organization'
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -31,10 +32,12 @@ function SignUpPage() {
     }
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:3000/api/auth/signup', { name, email, password });
+      const response = await axios.post('http://localhost:3000/api/auth/signup', { name, email, password, role });
       if (response.status === 201 && response.data.user) {
-        // Redirect to profile page with user info
-        navigate(`/profile?email=${encodeURIComponent(response.data.user.email)}&name=${encodeURIComponent(response.data.user.name)}`);
+        // Auto-login after signup
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        localStorage.setItem('token', response.data.token); // Store JWT
+        navigate('/dashboard');
       } else {
         setMessage(response.data.message || 'Sign-up failed');
       }
@@ -46,58 +49,110 @@ function SignUpPage() {
   };
 
   return (
-    <div className="container mt-3" style={{ maxWidth: '400px' }}>
-      <h1 className="text-center mb-3">Sign Up</h1>
-      <form className="mt-2" onSubmit={e => e.preventDefault()}>
-        <div className="mb-2">
-          <label htmlFor="name" className="form-label">Name</label>
-          <input
-            type="text"
-            className="form-control form-control-sm"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            autoComplete="name"
-          />
+    <div className="container d-flex align-items-center justify-content-center" style={{ minHeight: '80vh' }}>
+      <div className="glass-card p-5" style={{ width: '100%', maxWidth: '450px' }}>
+        <h1 className="text-center mb-4 text-gradient">Create Account</h1>
+        
+        {/* Role Toggle */}
+        <div className="d-flex justify-content-center mb-4">
+          <div className="btn-group w-100" role="group" aria-label="Role selection">
+            <button 
+              type="button" 
+              className="btn"
+              onClick={() => setRole('volunteer')}
+              style={{ 
+                borderRadius: '999px 0 0 999px',
+                padding: '0.75rem 1.5rem',
+                fontWeight: 600,
+                background: role === 'volunteer' ? 'var(--cc-primary)' : 'transparent',
+                color: role === 'volunteer' ? '#fff' : 'var(--cc-text)',
+                border: `2px solid ${role === 'volunteer' ? 'var(--cc-primary)' : 'rgba(255,255,255,0.2)'}`,
+                transition: 'all 0.3s ease'
+              }}
+            >
+              Volunteer
+            </button>
+            <button 
+              type="button" 
+              className="btn"
+              onClick={() => setRole('organization')}
+              style={{ 
+                borderRadius: '0 999px 999px 0',
+                padding: '0.75rem 1.5rem',
+                fontWeight: 600,
+                background: role === 'organization' ? 'var(--cc-primary)' : 'transparent',
+                color: role === 'organization' ? '#fff' : 'var(--cc-text)',
+                border: `2px solid ${role === 'organization' ? 'var(--cc-primary)' : 'rgba(255,255,255,0.2)'}`,
+                borderLeft: 'none',
+                transition: 'all 0.3s ease'
+              }}
+            >
+              Organization
+            </button>
+          </div>
         </div>
-        <div className="mb-2">
-          <label htmlFor="email" className="form-label">Email address</label>
-          <input
-            type="email"
-            className="form-control form-control-sm"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            autoComplete="email"
-          />
+
+        <form className="mt-2" onSubmit={e => e.preventDefault()}>
+          <div className="mb-3">
+            <label htmlFor="name" className="form-label text-uppercase small fw-bold">
+              {role === 'organization' ? 'Organization Name' : 'Full Name'}
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              autoComplete="name"
+              style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--cc-text)' }}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="email" className="form-label text-uppercase small fw-bold">Email address</label>
+            <input
+              type="email"
+              className="form-control"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              autoComplete="email"
+              style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--cc-text)' }}
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="password" className="form-label text-uppercase small fw-bold">Password</label>
+            <input
+              type="password"
+              className="form-control"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              minLength={6}
+              autoComplete="new-password"
+              style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--cc-text)' }}
+            />
+          </div>
+          <button
+            type="button"
+            id="sign-up"
+            className="btn btn-primary-glow w-100"
+            onClick={handleSignUp}
+            disabled={loading}
+          >
+            {loading ? 'Registering...' : 'Sign Up'}
+          </button>
+        </form>
+        {message && <p className="mt-3 text-center text-danger">{message}</p>}
+        
+        <div className="text-center mt-4">
+          <p className="small text-muted">
+            Already have an account? <a href="/login" className="text-accent text-decoration-none fw-bold">Log In</a>
+          </p>
         </div>
-        <div className="mb-2">
-          <label htmlFor="password" className="form-label">Password</label>
-          <input
-            type="password"
-            className="form-control form-control-sm"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            minLength={6}
-            autoComplete="new-password"
-          />
-        </div>
-        <button
-          type="button"
-          id="sign-up"
-          className="btn w-100"
-          style={{ borderRadius: '999px', padding: '0.5rem 1rem', fontWeight: 700, boxShadow: '0 6px 16px rgba(6, 113, 79, 0.18)' }}
-          onClick={handleSignUp}
-          disabled={loading}
-        >
-          {loading ? 'Registering...' : 'Sign Up'}
-        </button>
-      </form>
-      {message && <p className="mt-2 text-center text-danger">{message}</p>}
+      </div>
     </div>
   );
 }

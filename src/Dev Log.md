@@ -923,9 +923,9 @@ Scroll Storytelling Upgrade
 
 - How to build a REST API from scratch with Express
 - The difference between static data and API-fetched data
-- How async/await works - had to change the route from regular function to async
+- How async/await works, had to change the route from regular function to async
 - EJS templates need every variable defined or they crash
-- How to use fetch() in Node.js (it's built-in now!)
+- How to use fetch() in Node.js (its built-in now!)
 - Dynamic dropdowns - using EJS loops to populate select options from API data
 - Better error handling - try/catch blocks and fallback UI
 
@@ -990,13 +990,242 @@ Scroll Storytelling Upgrade
 
 ---
 
-**Dev Log – Migration Review (Codex)**  
+**Dev Log – Migration Review**  
 **Date:** 23 Oct 2025  
 **Project / Module:** Vite-based React migration acceptance  
 **Decision:** Accepted delivered changes.
 
-**Notes / Feedback (plain English):**
+**Notes / Feedback :**
 - Confirmed the React source now lives in `src/client` (components, pages, hooks, data, `main.jsx`) with Vite output targeting `src/public/dist`; Express is expected to serve from that dist while legacy assets remain for parity until cleanup.
 - GSAP is now wired through React via the animation hook with cleanup and reduced-motion guards; keep the unmount kills and prefers-reduced-motion checks on every timeline.
 - Navigation and filters should stay parity with the legacy pages; during validation hit Home/Directory/SDG/Contact to confirm SPA routing and that animations respect reduced motion.
 - Build/test flow: use `npm run dev` for HMR and `npm run build` then `npm start` to serve the built assets; once confirmed, we can safely remove `src/public/js/app.jsx` and `src/public/js/gsap-animations.js`.
+
+---
+
+**Date:** 25 Nov 2025  
+**Project / Module:** React Migration & Vite Integration  
+**Author:** Alberto Cisneros
+
+**Goals for the session:**
+
+- Migrate entire frontend from EJS templates to React components
+- Set up Vite build system for faster development
+- Refactor GSAP animations to work with React lifecycle
+- Maintain feature parity with existing site
+
+**Tasks Completed:**
+
+- Converted all EJS templates to React components (HomePage, DirectoryPage, SDGPage, ContactPage, DashboardPage)
+- Set up Vite configuration with proper publicDir pointing to `src/public`
+- Created `src/client` directory structure with components, pages, hooks, and styles
+- Refactored GSAP animations into `useGSAPAnimation` hook with proper cleanup
+- Implemented React Router for SPA navigation
+- Connected all existing API endpoints to new React frontend
+- Added ScrollManager component for smooth page transitions
+
+**Use of Gen AI:**
+
+**Heavy usage:** This was a big architectural change. Used Copilot extensively to convert EJS loops and conditionals into React JSX. Asked AI to help structure the component hierarchy and explain React hooks vs class components. Used AI to debug issues with GSAP timelines not cleaning up properly on unmount.
+
+**What I Learned:**
+
+- React component lifecycle and how useEffect works for animations
+- Vite is WAY faster than Webpack - HMR is instant
+- GSAP needs special handling in React - must kill timelines on unmount
+- How to structure a React app with proper separation of concerns
+- React Router v6 syntax and how to handle navigation
+- The difference between controlled and uncontrolled components
+
+**Challenges & Bugs:**
+
+❌ GSAP animations were firing multiple times on navigation  
+✅ Solution: Added cleanup functions in useEffect to kill timelines on unmount
+
+❌ Vite couldn't find static assets from public folder  
+✅ Solution: Configured publicDir in vite.config.js to point to `src/public`
+
+❌ React Router was causing full page reloads  
+✅ Solution: Used Link components instead of anchor tags
+
+❌ Bootstrap classes not applying correctly  
+✅ Solution: Imported Bootstrap CSS in index.html before custom styles
+
+**Resources Used:**
+
+- React documentation (hooks, lifecycle, router)
+- Vite documentation for configuration
+- GSAP React docs (@gsap/react)
+- AI (Copilot) for EJS to JSX conversion patterns
+- Stack Overflow for Vite publicDir issues
+
+**Next Steps:**
+
+- Remove old EJS files once everything is verified working
+- Optimize bundle size with code splitting
+- Add loading states for better UX
+- Consider adding React Query for API calls
+
+**Files Changed:**
+
+- Created: `src/client/` directory with all React components
+- Created: `vite.config.js`
+- Modified: `src/client/index.html` (new entry point)
+- Created: `src/client/main.jsx`, `App.jsx`
+- Created: Multiple component files in `src/client/components/` and `src/client/pages/`
+
+---
+
+**Date:** 26 Nov 2025  
+**Project / Module:** Authentication System & UI Polish  
+**Author:** Isaac Zenteno
+
+**Goals for the session:**
+
+- Implement complete login/signup flow
+- Add JWT authentication
+- Polish homepage animations
+- Fix navigation transitions
+
+**Tasks Completed:**
+
+- Built LoginPage and SignUpPage components with form validation
+- Integrated JWT token storage in localStorage
+- Created auth middleware for protected routes
+- Added user context for global auth state
+- Improved hero section animations with better timing
+- Fixed scroll-triggered animations to work with React Router
+- Added loading states during authentication
+
+**Use of Gen AI:**
+
+**Moderate usage:** Used AI to understand JWT best practices and localStorage security. Asked for help debugging why scroll animations weren't triggering after route changes - learned about ScrollTrigger.refresh().
+
+**What I Learned:**
+
+- How JWT authentication works (token generation, verification, expiration)
+- localStorage vs sessionStorage for token storage
+- Protected routes in React Router
+- GSAP ScrollTrigger needs refresh after route changes
+- Form validation patterns in React
+- How to handle async auth state
+
+**Challenges & Bugs:**
+
+❌ Scroll animations broke after implementing React Router  
+✅ Solution: Added ScrollTrigger.refresh() in useEffect after route changes
+
+❌ Token wasn't persisting across page refreshes  
+✅ Solution: Check localStorage on app mount and restore auth state
+
+❌ Login form wasn't showing validation errors  
+✅ Solution: Added error state and conditional rendering for error messages
+
+❌ Hero animation timing felt off  
+✅ Solution: Adjusted GSAP timeline delays and easing functions
+
+**Resources Used:**
+
+- JWT.io for understanding tokens
+- React Router documentation for protected routes
+- GSAP ScrollTrigger docs
+- MDN for localStorage API
+- AI for debugging scroll animation issues
+
+**Next Steps:**
+
+- Add "Remember Me" functionality
+- Implement password reset flow
+- Add social login options
+- Improve error messaging
+
+**Files Changed:**
+
+- Created: `src/client/pages/LoginPage.jsx`
+- Created: `src/client/pages/SignUpPage.jsx`
+- Modified: `src/client/hooks/useGSAPAnimation.js`
+- Modified: `src/client/pages/HomePage.jsx`
+
+---
+
+**Date:** 27 Nov 2025  
+**Project / Module:** Core Features & Bug Fixes  
+**Author:** Juan Luna
+
+**Goals for the session:**
+
+- Remove donation features (out of scope)
+- Fix opportunity creation persistence bug
+- Implement organization dashboard management
+- Add bookmark functionality for Mexican NGOs
+- Fix volunteer sign-up flow
+
+**Tasks Completed:**
+
+- Removed all donation-related code from frontend and backend
+- Fixed "Create Opportunity" form - wasn't saving to MongoDB correctly
+- Added `/api/activities/created` endpoint for organizations
+- Implemented "Manage" view showing volunteer sign-ups
+- Added bookmark button to Mexican NGO cards
+- Fixed dashboard to show user's active participations
+- Added Accept/Message functionality for organizations
+- Used placeholder images for Mexican NGO bookmarks
+
+**Use of Gen AI:**
+
+**HEAVY usage for debugging:** The persistence bug was killing me. Opportunities would save but disappear after refresh. Used an AI agent to trace the entire data flow from form submission to database to dashboard rendering. Agent found that the frontend was filtering activities by `organizer._id` but the API was returning `organizer` as a string sometimes. Also used AI to understand MongoDB populate() method.
+
+**What I Learned:**
+
+- MongoDB populate() is crucial for relational data
+- Frontend filtering can hide backend bugs
+- Always check what shape your API actually returns
+- localStorage is useful for auth tokens
+- React state management for forms
+- How to debug full-stack data flow issues
+- The importance of console.logging at every step
+
+**Challenges & Bugs:**
+
+❌ Created opportunities disappeared after page refresh  
+✅ Solution: Frontend was filtering by `organizer._id` but backend sometimes returned string. Created dedicated `/api/activities/created` endpoint with proper population.
+
+❌ "Manage" button wasn't showing for organizations  
+✅ Solution: Changed button class from `btn-outline-light` to `btn-outline-dark` for visibility
+
+❌ Mexican NGO bookmarks failing because no image  
+✅ Solution: Added placeholder image URL when bookmarking Mexican NGOs
+
+❌ Volunteer info text was hard to read  
+✅ Solution: Changed text color from `text-light` to `text-dark`
+
+❌ Dashboard showing duplicate activities  
+✅ Solution: Fixed filtering logic to use correct endpoint for each user role
+
+**Resources Used:**
+
+- MongoDB documentation for populate()
+- Mongoose docs for query methods
+- Express.js routing documentation
+- AI agent for debugging persistence issue
+- React documentation for state management
+
+**Next Steps:**
+
+- Add pagination for activities list
+- Implement search/filter on dashboard
+- Add email notifications for volunteer sign-ups
+- Consider adding activity categories
+- Scrape logos for Mexican NGOs instead of placeholder
+
+**Personal Reflection:**
+
+"That persistence bug was brutal. Spent hours thinking it was a database issue when it was actually the frontend filtering wrong. The AI agent helped me trace through every step which I should have done from the start. Learned that when data 'disappears', it's usually not gone - you're just not fetching it right. Also learned to always check the actual API response shape, not what you THINK it should be."
+
+**Files Changed:**
+
+- Modified: `src/client/pages/DashboardPage.jsx`
+- Modified: `src/client/pages/DirectoryPage.jsx` (added MexicanNgoCard component)
+- Modified: `src/routes/activityRoutes.js` (added `/created` endpoint)
+- Modified: `src/routes/userRoutes.js` (bookmark endpoints)
+- Removed: Donation-related code from multiple files
