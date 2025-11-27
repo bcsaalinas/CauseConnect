@@ -9,9 +9,13 @@ const formatNumber = (value) => {
   return value.toLocaleString("en-US");
 };
 
-function GlobalGivingCard({ project }) {
+function GlobalGivingCard({ project, initialBookmarked }) {
   const progress = Math.min(project.progress || 0, 100);
-  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(initialBookmarked);
+
+  useEffect(() => {
+    setIsBookmarked(initialBookmarked);
+  }, [initialBookmarked]);
 
   const handleBookmark = async () => {
     const token = localStorage.getItem('token');
@@ -80,7 +84,7 @@ function GlobalGivingCard({ project }) {
   );
 }
 
-function GlobalGivingExplorer() {
+function GlobalGivingExplorer({ myBookmarks = [] }) {
   const [filters, setFilters] = useState({ q: "", country: "Mexico", theme: "" });
   const debouncedQuery = useDebouncedValue(filters.q, 350);
   const [state, setState] = useState({ loading: true, error: "", projects: [], total: 0 });
@@ -204,15 +208,25 @@ function GlobalGivingExplorer() {
             </div>
           )}
           {!state.loading && !state.error &&
-            state.projects.map((project) => <GlobalGivingCard key={project.id} project={project} />)}
+            state.projects.map((project) => (
+              <GlobalGivingCard 
+                key={project.id} 
+                project={project} 
+                initialBookmarked={myBookmarks.some(b => b.projectId === project.id.toString())}
+              />
+            ))}
         </div>
       </div>
     </section>
   );
 }
 
-function CauseConnectCard({ activity }) {
-  const [signedUp, setSignedUp] = useState(false);
+function CauseConnectCard({ activity, initialSignedUp }) {
+  const [signedUp, setSignedUp] = useState(initialSignedUp);
+
+  useEffect(() => {
+    setSignedUp(initialSignedUp);
+  }, [initialSignedUp]);
 
   const handleSignUp = async () => {
     const token = localStorage.getItem('token');
@@ -264,8 +278,12 @@ function CauseConnectCard({ activity }) {
 
 }
 
-function MexicanNgoCard({ org }) {
-  const [isBookmarked, setIsBookmarked] = useState(false);
+function MexicanNgoCard({ org, initialBookmarked }) {
+  const [isBookmarked, setIsBookmarked] = useState(initialBookmarked);
+
+  useEffect(() => {
+    setIsBookmarked(initialBookmarked);
+  }, [initialBookmarked]);
 
   // juan: handling bookmarks for local ngos here
   // had to use a placeholder img cause the api doesnt give us one yet
@@ -368,6 +386,8 @@ function DirectoryPage() {
   const [state, setState] = useState({ loading: true, error: "", ngos: [], total: 0, options: { causes: [], cities: [] } });
   
   const [ccActivities, setCcActivities] = useState([]);
+  const [myParticipations, setMyParticipations] = useState([]);
+  const [myBookmarks, setMyBookmarks] = useState([]);
 
   useEffect(() => {
     const fetchActivities = async () => {
@@ -378,7 +398,39 @@ function DirectoryPage() {
         console.error('Error fetching activities:', err);
       }
     };
+
+    const fetchMyParticipations = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) return;
+
+      try {
+        const res = await axios.get('http://localhost:3000/api/activities/my-activities', {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        // Store just the activity IDs for easy checking
+        setMyParticipations(res.data.map(p => p._id));
+      } catch (err) {
+        console.error('Error fetching participations:', err);
+      }
+    };
+
+    const fetchMyBookmarks = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) return;
+
+      try {
+        const res = await axios.get('http://localhost:3000/api/user/bookmarks', {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setMyBookmarks(res.data);
+      } catch (err) {
+        console.error('Error fetching bookmarks:', err);
+      }
+    };
+
     fetchActivities();
+    fetchMyParticipations();
+    fetchMyBookmarks();
   }, []);
 
   useEffect(() => {
@@ -546,7 +598,11 @@ function DirectoryPage() {
           <div className="gg-projects-grid fade-up mt-4" data-animate="stagger-cards">
             {ccActivities.length > 0 ? (
               ccActivities.map(activity => (
-                <CauseConnectCard key={activity._id} activity={activity} />
+                <CauseConnectCard 
+                  key={activity._id} 
+                  activity={activity} 
+                  initialSignedUp={myParticipations.includes(activity._id)}
+                />
               ))
             ) : (
               <div className="col-12 text-center text-muted p-5 glass-panel">
@@ -596,14 +652,18 @@ function DirectoryPage() {
           {!state.loading && !state.error && state.ngos.length > 0 && (
             <div className="directory-results fade-up" data-animate="stagger-cards" data-stagger-target=".directory-card">
               {state.ngos.map((org) => (
-                <MexicanNgoCard key={org.id} org={org} />
+                <MexicanNgoCard 
+                  key={org.id} 
+                  org={org} 
+                  initialBookmarked={myBookmarks.some(b => b.projectId === org.id.toString())}
+                />
               ))}
             </div>
           )}
         </div>
       </section>
 
-      <GlobalGivingExplorer />
+      <GlobalGivingExplorer myBookmarks={myBookmarks} />
     </>
   );
 }
