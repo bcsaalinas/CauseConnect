@@ -63,9 +63,14 @@ function SDGPage() {
                       <p className="mb-0">{goal.copy}</p>
                     </div>
                   </div>
-                  <button className="sdg-more btn btn-link p-0 mt-2" type="button">
+                  <a 
+                    href={`https://sdgs.un.org/goals/goal${goal.number}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="sdg-more btn btn-link p-0 mt-2"
+                  >
                     Learn more
-                  </button>
+                  </a>
                 </article>
               </div>
             ))}
