@@ -1229,3 +1229,55 @@ Scroll Storytelling Upgrade
 - Modified: `src/routes/activityRoutes.js` (added `/created` endpoint)
 - Modified: `src/routes/userRoutes.js` (bookmark endpoints)
 - Removed: Donation-related code from multiple files
+
+---
+
+**Date:** 01 Dec 2025
+**Project / Module:** Final Polish & Capstone Verification
+**Goals for the session:**
+**Author** Alberto Cisneros
+
+- Fix search bar functionality in the header.
+- Fix mobile navbar visibility issue.
+- Verify all capstone requirements (MERN stack, security, persistence, etc.).
+- Update documentation (README and Dev Log).
+- Ensure deployment readiness.
+
+**Tasks Completed:**
+
+- Implemented search functionality in `Header.jsx` to redirect to the directory page with query parameters.
+- Added Bootstrap JS to `index.html` to fix the mobile navbar toggler.
+- Verified full MERN stack implementation (MongoDB, Express, React, Node).
+- Verified security measures (JWT authentication, protected routes).
+- Verified data persistence (localStorage for tokens/user data).
+- Verified third-party API usage (GlobalGiving).
+- Verified RESTful API structure.
+- Updated `README.md` with clear installation and running instructions.
+
+**Use of Gen AI:**
+Used AI agent to explore the codebase, identify issues with the search bar and navbar, and verify project requirements. It helped in quickly locating the relevant files and suggesting fixes. Also asked for it to add instructions and details to the README.md file.
+
+**What I Learned:**
+- The importance of checking external dependencies (like Bootstrap JS) when UI components fail.
+- How to effectively use React Router's `useNavigate` for search redirection.
+- The value of a comprehensive `README` for project handoff and deployment.
+
+**Challenges & Bugs:**
+❌ Search bar was non-functional (no event handler).
+✅ Fixed by adding an `onSubmit` handler to redirect to `/directory?q=...`.
+
+❌ Mobile navbar menu wasn't opening.
+✅ Fixed by adding the missing Bootstrap JS script to `index.html`.
+
+❌ Hamburger menu icon was invisible on mobile.
+✅ Fixed by changing `navbar-dark` to `navbar-light` in `Header.jsx` to ensure the icon contrasts with the white background.
+
+**Changes:**
+- Removed the search bar from the navbar in `Header.jsx` as per user request, to simplify the interface.
+
+**Resources Used:**
+- React Router Documentation
+- Bootstrap 5 Documentation
+
+**Personal Reflection:**
+"The project is now complete and ready for the capstone presentation. It feels robust and professional. The final polish really made a difference in the user experience, especially on mobile devices. I'm proud of the full-stack implementation and the integration with external APIs."

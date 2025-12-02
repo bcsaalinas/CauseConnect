@@ -24,6 +24,59 @@
 CauseConnect is a platform built to connect citizens with NGOs and foundations in Guadalajara.  
 The goal is to make social participation simpler, more organized, and more effective.
 
+## 🛠️ Tech Stack
+
+- **Frontend:** React, Vite, Bootstrap 5, GSAP
+- **Backend:** Node.js, Express.js, MongoDB, Mongoose
+- **Authentication:** JWT (JSON Web Tokens)
+- **External APIs:** GlobalGiving API
+
+## 🏁 Getting Started
+
+### Prerequisites
+
+- Node.js (v14 or higher)
+- MongoDB (running locally or a connection string)
+
+### Installation
+
+1.  Clone the repository:
+    ```bash
+    git clone https://github.com/bcsaalinas/CauseConnect.git
+    cd CauseConnect
+    ```
+
+2.  Install dependencies:
+    ```bash
+    npm install
+    ```
+
+3.  Set up environment variables:
+    Create a `.env` file in the root directory and add the following:
+    ```env
+    PORT=3000
+    MONGODB_URI=mongodb://localhost:27017/causeconnect
+    JWT_SECRET=your_jwt_secret_key
+    GLOBALGIVING_API_KEY=your_api_key
+    ```
+
+4.  Run the development server:
+    ```bash
+    npm run dev
+    ```
+    This will start both the backend server (port 3000) and the frontend client (port 5173).
+
+5.  Open your browser and visit `http://localhost:5173`.
+
+## 🚀 Deployment
+
+To build the project for production:
+
+```bash
+npm run build
+```
+
+
 ## 🧭 Front-end notes
 
 - the layout uses glass panels, fade-up classes, and bootstrap grid — tweak tokens in `src/public/css/main.css` to keep spacing consistent.

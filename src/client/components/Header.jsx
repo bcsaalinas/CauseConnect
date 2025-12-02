@@ -42,7 +42,7 @@ function Header() {
     <header>
       <div className="cc-header-shell">
         <div className="blur-blob hero-blob d-none d-md-block" aria-hidden="true"></div>
-        <nav className="navbar navbar-expand-md navbar-dark cc-header cc-header-minimal sticky-top cc-header-glass">
+        <nav className="navbar navbar-expand-md navbar-light cc-header cc-header-minimal sticky-top cc-header-glass">
           <div className="container-xl">
             <NavLink to="/" className="navbar-brand d-inline-block">
               <img src="/images/logo.png" alt="Cause Connect" className="cc-brand-logo" />
@@ -83,12 +83,7 @@ function Header() {
                 </li>
               </ul>
 
-              <form role="search" className="d-flex ms-md-4 ms-0 cc-search align-items-center gap-2">
-                <span className="visually-hidden" id="site-search-label">
-                  Search directory
-                </span>
-                <input className="flex-grow-1" type="search" placeholder="Search" aria-labelledby="site-search-label" />
-              </form>
+
 
               <div className="d-flex ms-auto align-items-center">
                 {user ? (
