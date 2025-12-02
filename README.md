@@ -5,8 +5,8 @@
 </p>
 
 <p align="center">
-  <a href="https://bcsaalinas.github.io/CauseConnect/">
-    <img src="https://img.shields.io/badge/Live%20Preview-GitHub%20Pages-blue?style=for-the-badge" alt="Live Preview">
+  <a href="https://plankton-app-q5a3a.ondigitalocean.app">
+    <img src="https://img.shields.io/badge/Live%20Preview-DigitalOcean-blue?style=for-the-badge" alt="Live Preview">
   </a>
 </p>
 
@@ -15,7 +15,7 @@
 ## 🚀 Live Preview
 
 ✨ **Check out the project here:**  
-👉 [https://causeconnect-xp23s.ondigitalocean.app/](https://causeconnect-xp23s.ondigitalocean.app/)
+👉 [https://plankton-app-q5a3a.ondigitalocean.app](https://plankton-app-q5a3a.ondigitalocean.app)
 
 ---
 
