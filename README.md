@@ -15,7 +15,7 @@
 ## 🚀 Live Preview
 
 ✨ **Check out the project here:**  
-👉 [https://bcsaalinas.github.io/CauseConnect/](https://bcsaalinas.github.io/CauseConnect/)
+👉 [https://causeconnect-xp23s.ondigitalocean.app/](https://causeconnect-xp23s.ondigitalocean.app/)
 
 ---
 
