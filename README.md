@@ -24,7 +24,13 @@
 CauseConnect is a platform built to connect citizens with NGOs and foundations in Guadalajara.  
 The goal is to make social participation simpler, more organized, and more effective.
 
-## 🛠️ Tech Stack
+## � Documentation
+
+- [**Dev Log**](./DEVLOG.md): Track the development progress.
+- [**Design Document**](./DESIGN.md): Sketches, diagrams, and workflows.
+- [**Conclusion & Reflections**](./CONCLUSION.md): Challenges, solutions, and team reflections.
+
+## �🛠️ Tech Stack
 
 - **Frontend:** React, Vite, Bootstrap 5, GSAP
 - **Backend:** Node.js, Express.js, MongoDB, Mongoose
