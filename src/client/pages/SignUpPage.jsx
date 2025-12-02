@@ -32,7 +32,7 @@ function SignUpPage() {
     }
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:3000/api/auth/signup', { name, email, password, role });
+      const response = await axios.post('/api/auth/signup', { name, email, password, role });
       if (response.status === 201 && response.data.user) {
         // Auto-login after signup
         localStorage.setItem('user', JSON.stringify(response.data.user));

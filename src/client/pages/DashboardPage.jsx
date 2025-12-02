@@ -39,7 +39,7 @@ function DashboardPage() {
     setManagingActivity(activity);
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get(`http://localhost:3000/api/activities/${activity._id}/participants`, {
+      const res = await axios.get(`/api/activities/${activity._id}/participants`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       console.log('Participants fetched:', res.data);
@@ -52,14 +52,14 @@ function DashboardPage() {
   const handleUpdateStatus = async (participationId, status) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.put(`http://localhost:3000/api/activities/participation/${participationId}`, 
+      await axios.put(`/api/activities/participation/${participationId}`, 
         { status },
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setParticipants(participants.map(p => p._id === participationId ? { ...p, status } : p));
       
       // Refresh stats to reflect the change
-      const statsRes = await axios.get('http://localhost:3000/api/dashboard/stats', {
+      const statsRes = await axios.get('/api/dashboard/stats', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setStats(statsRes.data);
@@ -74,7 +74,7 @@ function DashboardPage() {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.post('http://localhost:3000/api/activities', newActivity, {
+      const res = await axios.post('/api/activities', newActivity, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setActivities([...activities, res.data]);
@@ -106,28 +106,28 @@ function DashboardPage() {
         const config = { headers: { Authorization: `Bearer ${token}` } };
         
         // Fetch stats
-        const statsRes = await axios.get('http://localhost:3000/api/dashboard/stats', config);
+        const statsRes = await axios.get('/api/dashboard/stats', config);
         setStats(statsRes.data);
 
         // Fetch activities
         const currentUser = JSON.parse(storedUser);
         if (currentUser.role === 'organization') {
            console.log('Fetching created activities...');
-           const activitiesRes = await axios.get('http://localhost:3000/api/activities/created', config);
+           const activitiesRes = await axios.get('/api/activities/created', config);
            console.log('Created activities response:', activitiesRes.data);
            setActivities(activitiesRes.data);
         } else {
            // For volunteers, fetch their joined activities with details
-           const activitiesRes = await axios.get('http://localhost:3000/api/activities/my-activities', config);
+           const activitiesRes = await axios.get('/api/activities/my-activities', config);
            setActivities(activitiesRes.data);
         }
 
         // Fetch bookmarks
-        const bookmarksRes = await axios.get('http://localhost:3000/api/user/bookmarks', config);
+        const bookmarksRes = await axios.get('/api/user/bookmarks', config);
         setBookmarks(bookmarksRes.data);
 
         // Fetch featured projects (public API)
-        const featuredRes = await axios.get('http://localhost:3000/api/gg/projects/featured');
+        const featuredRes = await axios.get('/api/gg/projects/featured');
         setFeaturedProjects(featuredRes.data.projects || []);
         
       } catch (error) {
@@ -401,7 +401,7 @@ function DashboardPage() {
                       onClick={async () => {
                         try {
                           const token = localStorage.getItem('token');
-                          await axios.delete(`http://localhost:3000/api/user/bookmarks/${bookmark.projectId}`, {
+                          await axios.delete(`/api/user/bookmarks/${bookmark.projectId}`, {
                             headers: { Authorization: `Bearer ${token}` }
                           });
                           setBookmarks(bookmarks.filter(b => b.projectId !== bookmark.projectId));
@@ -495,7 +495,7 @@ function DashboardPage() {
                 const name = e.target.name.value;
                 const bio = e.target.bio.value;
                 
-                const res = await axios.put('http://localhost:3000/api/auth/profile', 
+                const res = await axios.put('/api/auth/profile', 
                   { name, bio },
                   { headers: { Authorization: `Bearer ${token}` } }
                 );

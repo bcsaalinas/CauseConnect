@@ -19,7 +19,7 @@ function GlobalGivingCard({ project }) {
     }
 
     try {
-      await axios.post('http://localhost:3000/api/user/bookmarks', {
+      await axios.post('/api/user/bookmarks', {
         projectId: project.id,
         title: project.title,
         imageUrl: project.imageUrl

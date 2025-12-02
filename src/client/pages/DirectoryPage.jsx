@@ -25,7 +25,7 @@ function GlobalGivingCard({ project, initialBookmarked }) {
     }
 
     try {
-      await axios.post('http://localhost:3000/api/user/bookmarks', {
+      await axios.post('/api/user/bookmarks', {
         projectId: project.id,
         title: project.title,
         imageUrl: project.imageUrl
@@ -235,7 +235,7 @@ function CauseConnectCard({ activity, initialSignedUp }) {
       return;
     }
     try {
-      await axios.post(`http://localhost:3000/api/activities/${activity._id}/join`, {}, {
+      await axios.post(`/api/activities/${activity._id}/join`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setSignedUp(true);
@@ -299,7 +299,7 @@ function MexicanNgoCard({ org, initialBookmarked }) {
       // TODO: (alberto) maybe we can scrape logos later?
       const placeholderImage = "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80";
 
-      await axios.post('http://localhost:3000/api/user/bookmarks', {
+      await axios.post('/api/user/bookmarks', {
         projectId: org.id,
         title: org.name,
         imageUrl: placeholderImage
@@ -392,7 +392,7 @@ function DirectoryPage() {
   useEffect(() => {
     const fetchActivities = async () => {
       try {
-        const res = await axios.get('http://localhost:3000/api/activities');
+        const res = await axios.get('/api/activities');
         setCcActivities(res.data);
       } catch (err) {
         console.error('Error fetching activities:', err);
@@ -404,7 +404,7 @@ function DirectoryPage() {
       if (!token) return;
 
       try {
-        const res = await axios.get('http://localhost:3000/api/activities/my-activities', {
+        const res = await axios.get('/api/activities/my-activities', {
           headers: { Authorization: `Bearer ${token}` }
         });
         // Store just the activity IDs for easy checking
@@ -419,7 +419,7 @@ function DirectoryPage() {
       if (!token) return;
 
       try {
-        const res = await axios.get('http://localhost:3000/api/user/bookmarks', {
+        const res = await axios.get('/api/user/bookmarks', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setMyBookmarks(res.data);
