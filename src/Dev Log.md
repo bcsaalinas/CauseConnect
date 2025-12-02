@@ -1255,7 +1255,7 @@ Scroll Storytelling Upgrade
 - Updated `README.md` with clear installation and running instructions.
 
 **Use of Gen AI:**
-Used AI agent to explore the codebase, identify issues with the search bar and navbar, and verify project requirements. It helped in quickly locating the relevant files and suggesting fixes. Also asked for it to add instructions and details to the README.md file.
+Used AI agent to explore the codebase, identify issues with the search bar and navbar, and verify project requirements. It helped in quickly locating the relevant files and suggesting fixes. Also asked for it to add instructions and details to the `README.md` file.
 
 **What I Learned:**
 - The importance of checking external dependencies (like Bootstrap JS) when UI components fail.
