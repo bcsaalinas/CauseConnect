@@ -28,7 +28,7 @@ mongoose.connect(MONGODB_URI)
   .catch(err => console.error('✕ MongoDB connection error:', err));
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const publicDir = path.join(__dirname, "src", "public");
+const publicDir = path.join(__dirname, "public", "dist");
 const indexHtml = path.join(publicDir, "index.html");
 
 // Seguridad básica (desactivamos CSP para permitir CDNs/iframes sin configurar listas)
