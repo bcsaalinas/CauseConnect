@@ -81,6 +81,41 @@ router.post('/', auth, async (req, res) => {
   }
 });
 
+// Update activity (Organization only)
+router.put('/:id', auth, async (req, res) => {
+  try {
+    const activity = await Activity.findById(req.params.id);
+
+    if (!activity) {
+      return res.status(404).json({ message: 'Activity not found' });
+    }
+
+    // Check ownership
+    // Ensure both are strings for comparison
+    if (activity.organizer.toString() !== req.user.userId) {
+      return res.status(403).json({ message: 'Access denied. You can only edit your own activities.' });
+    }
+
+    // Update fields
+    const { title, description, date, duration, location, privateDetails, externalLink } = req.body;
+
+    activity.title = title || activity.title;
+    activity.description = description || activity.description;
+    activity.date = date || activity.date;
+    activity.duration = duration || activity.duration;
+    activity.location = location || activity.location;
+    // Allow empty string updates for optional fields
+    if (privateDetails !== undefined) activity.privateDetails = privateDetails;
+    if (externalLink !== undefined) activity.externalLink = externalLink;
+
+    await activity.save();
+    res.json(activity);
+  } catch (error) {
+    console.error('Error updating activity:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 // Join activity (Volunteer only)
 router.post('/:id/join', auth, async (req, res) => {
   try {

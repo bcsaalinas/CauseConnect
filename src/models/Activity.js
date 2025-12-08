@@ -24,6 +24,11 @@ const activitySchema = new mongoose.Schema({
     trim: true,
     default: ''
   },
+  externalLink: {
+     type: String,
+     trim: true,
+     default: ''
+  },
   location: {
     type: String,
     required: true

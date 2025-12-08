@@ -31,8 +31,11 @@ function DashboardPage() {
     date: '',
     duration: '',
     location: '',
-    privateDetails: ''
+    privateDetails: '',
+    externalLink: ''
   });
+
+  const [editingId, setEditingId] = useState(null);
 
   const handleManage = async (activity) => {
     console.log('Managing activity:', activity);
@@ -70,24 +73,51 @@ function DashboardPage() {
     }
   };
 
-  const handleCreateActivity = async (e) => {
+  const handleSaveActivity = async (e) => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.post('/api/activities', newActivity, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setActivities([...activities, res.data]);
+      let res;
+      
+      if (editingId) {
+        // Update existing
+        res = await axios.put(`/api/activities/${editingId}`, newActivity, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setActivities(activities.map(a => a._id === editingId ? res.data : a));
+        alert('Activity updated successfully!');
+      } else {
+        // Create new
+        res = await axios.post('/api/activities', newActivity, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setActivities([...activities, res.data]);
+        alert('Activity created successfully!');
+      }
+      
       setShowCreateModal(false);
-      setActivities([...activities, res.data]);
-      setShowCreateModal(false);
-      setNewActivity({ title: '', description: '', date: '', duration: '', location: '', privateDetails: '' });
-      alert('Activity created successfully!');
+      setNewActivity({ title: '', description: '', date: '', duration: '', location: '', privateDetails: '', externalLink: '' });
+      setEditingId(null);
     } catch (error) {
-      console.error('Error creating activity:', error);
-      alert('Failed to create activity');
+      console.error('Error saving activity:', error);
+      alert('Failed to save activity');
     }
   };
+
+  const startEdit = (activity) => {
+    setNewActivity({
+      title: activity.title,
+      description: activity.description,
+      date: activity.date ? activity.date.split('T')[0] : '',
+      duration: activity.duration,
+      location: activity.location,
+      privateDetails: activity.privateDetails || '',
+      externalLink: activity.externalLink || ''
+    });
+    setEditingId(activity._id);
+    setShowCreateModal(true);
+  };
+
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -208,7 +238,11 @@ function DashboardPage() {
             <h4 className="mb-0">Active Opportunities</h4>
             <button 
               className="btn btn-sm btn-primary-glow"
-              onClick={() => setShowCreateModal(true)}
+              onClick={() => {
+                setEditingId(null);
+                setNewActivity({ title: '', description: '', date: '', duration: '', location: '', privateDetails: '', externalLink: '' });
+                setShowCreateModal(true);
+              }}
             >
               Create New
             </button>
@@ -216,8 +250,8 @@ function DashboardPage() {
           
           {showCreateModal && (
             <div className="mb-4 p-4 border rounded border-secondary bg-dark bg-opacity-50">
-              <h5 className="mb-3">Create New Opportunity</h5>
-              <form onSubmit={handleCreateActivity}>
+              <h5 className="mb-3">{editingId ? 'Edit Opportunity' : 'Create New Opportunity'}</h5>
+              <form onSubmit={handleSaveActivity}>
                 <div className="mb-3">
                   <label className="form-label">Title</label>
                   <input 
@@ -278,12 +312,24 @@ function DashboardPage() {
                       rows="2" 
                       placeholder="Meeting point, contact number, etc."
                       value={newActivity.privateDetails}
+
                       onChange={e => setNewActivity({...newActivity, privateDetails: e.target.value})}
                     ></textarea>
                   </div>
+                  <div className="col-12 mb-3">
+                    <label className="form-label">External Link (Optional)</label>
+                    <input 
+                      type="url" 
+                      className="form-control" 
+                      placeholder="https://paypal.me/donate or https://forms.gle/..."
+                      value={newActivity.externalLink}
+                      onChange={e => setNewActivity({...newActivity, externalLink: e.target.value})}
+                    />
+                    <small className="text-muted">Add a link to a donation page, signup form, or more info.</small>
+                  </div>
                 </div>
                 <div className="d-flex gap-2">
-                  <button type="submit" className="btn btn-primary-glow">Create Opportunity</button>
+                  <button type="submit" className="btn btn-primary-glow">{editingId ? 'Update Opportunity' : 'Create Opportunity'}</button>
                   <button 
                     type="button" 
                     className="btn btn-outline-secondary"
@@ -310,16 +356,32 @@ function DashboardPage() {
                          <small className="text-success fw-bold d-block mb-1">ℹ️ Volunteer Info:</small>
                          <small className="text-dark">{activity.privateDetails}</small>
                        </div>
+
+                    )}
+                    {activity.externalLink && (
+                       <div className="mt-2">
+                         <a href={activity.externalLink} target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-outline-info">
+                           Visit External Link ↗
+                         </a>
+                       </div>
                     )}
                   </div>
                   {user.role === 'organization' ? (
                     // JUAN: Added manage button for orgs to view volunteers
-                    <button 
-                      className="btn btn-outline-dark btn-sm"
-                      onClick={() => handleManage(activity)}
-                    >
-                      Manage
-                    </button>
+                    <div className="d-flex gap-2">
+                      <button 
+                        className="btn btn-outline-light btn-sm"
+                        onClick={() => startEdit(activity)}
+                      >
+                        Edit
+                      </button>
+                      <button 
+                        className="btn btn-outline-dark btn-sm"
+                        onClick={() => handleManage(activity)}
+                      >
+                        Manage
+                      </button>
+                    </div>
                   ) : (
                     <span className={`badge ${activity.participationStatus === 'accepted' ? 'bg-success' : 'bg-primary'} bg-opacity-25 text-${activity.participationStatus === 'accepted' ? 'success' : 'primary'}`}>
                       {activity.participationStatus === 'accepted' ? 'Accepted' : 'Joined'}

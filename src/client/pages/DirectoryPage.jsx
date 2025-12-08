@@ -272,6 +272,16 @@ function CauseConnectCard({ activity, initialSignedUp }) {
         >
           {signedUp ? 'Signed Up' : 'Sign Up'}
         </button>
+        {activity.externalLink && (
+          <a 
+            href={activity.externalLink} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="btn btn-pill btn-sm btn-outline-info"
+          >
+            Learn More
+          </a>
+        )}
       </div>
     </article>
   );
