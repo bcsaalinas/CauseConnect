@@ -14,7 +14,7 @@
 
 ## 🚀 Live Preview
 
-✨ **Check out the project here:**  
+✨ **Check out the project here: (currently OUT OF SERVICE :( )**  
 👉 [https://plankton-app-q5a3a.ondigitalocean.app](https://plankton-app-q5a3a.ondigitalocean.app)
 
 ---
