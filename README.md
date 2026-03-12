@@ -1,20 +1,14 @@
-<h1 align="center">🌐 CauseConnect</h1>
+<h1 align="center">🌐 CauseConnect Project for Web Development class</h1>
 
 <p align="center">
   Connects citizens with NGOs and foundations in Guadalajara — <b>SDG 17</b>.
-</p>
-
-<p align="center">
-  <a href="https://plankton-app-q5a3a.ondigitalocean.app">
-    <img src="https://img.shields.io/badge/Live%20Preview-DigitalOcean-blue?style=for-the-badge" alt="Live Preview">
-  </a>
 </p>
 
 ---
 
 ## 🚀 Live Preview
 
-✨ **Check out the project here: (currently OUT OF SERVICE :( )**  
+✨ **Check out the project here: (currently OUT OF SERVICE :(    )**  
 👉 [https://plankton-app-q5a3a.ondigitalocean.app](https://plankton-app-q5a3a.ondigitalocean.app)
 
 ---
